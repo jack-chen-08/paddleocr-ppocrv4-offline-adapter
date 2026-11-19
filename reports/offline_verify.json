@@ -1,0 +1,11 @@
+{
+  "network": "BLOCKED",
+  "image": "data/pages/page_03.png",
+  "page_no": 3,
+  "engine": "paddleocr-pp-ocrv4_mobile_det",
+  "line_count": 24,
+  "avg_confidence": 0.9882,
+  "stamp_overlap_lines": 1,
+  "elapsed_ms": 4390.5,
+  "verdict": "PASS"
+}

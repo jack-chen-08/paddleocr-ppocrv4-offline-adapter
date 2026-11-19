@@ -1,0 +1,116 @@
+{
+ "overall_char_accuracy": 0.997,
+ "threshold": 0.97,
+ "pages": [
+  {
+   "page": "page_01.png",
+   "page_no": 1,
+   "chars_gt": 459,
+   "chars_pred": 457,
+   "edit_distance": 2,
+   "char_accuracy": 0.9956,
+   "lines": 23,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 2.51
+  },
+  {
+   "page": "page_02.png",
+   "page_no": 2,
+   "chars_gt": 453,
+   "chars_pred": 452,
+   "edit_distance": 1,
+   "char_accuracy": 0.9978,
+   "lines": 23,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 2.04
+  },
+  {
+   "page": "page_03.png",
+   "page_no": 3,
+   "chars_gt": 480,
+   "chars_pred": 480,
+   "edit_distance": 0,
+   "char_accuracy": 1.0,
+   "lines": 24,
+   "stamp_overlap_lines": 1,
+   "elapsed_s": 3.57
+  },
+  {
+   "page": "page_04.png",
+   "page_no": 4,
+   "chars_gt": 452,
+   "chars_pred": 451,
+   "edit_distance": 1,
+   "char_accuracy": 0.9978,
+   "lines": 22,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 1.56
+  },
+  {
+   "page": "page_05.png",
+   "page_no": 5,
+   "chars_gt": 451,
+   "chars_pred": 450,
+   "edit_distance": 1,
+   "char_accuracy": 0.9978,
+   "lines": 22,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 1.62
+  },
+  {
+   "page": "page_06.png",
+   "page_no": 6,
+   "chars_gt": 491,
+   "chars_pred": 487,
+   "edit_distance": 4,
+   "char_accuracy": 0.9919,
+   "lines": 23,
+   "stamp_overlap_lines": 1,
+   "elapsed_s": 3.64
+  },
+  {
+   "page": "page_07.png",
+   "page_no": 7,
+   "chars_gt": 452,
+   "chars_pred": 451,
+   "edit_distance": 1,
+   "char_accuracy": 0.9978,
+   "lines": 23,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 1.78
+  },
+  {
+   "page": "page_08.png",
+   "page_no": 8,
+   "chars_gt": 440,
+   "chars_pred": 439,
+   "edit_distance": 1,
+   "char_accuracy": 0.9977,
+   "lines": 22,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 1.75
+  },
+  {
+   "page": "page_09.png",
+   "page_no": 9,
+   "chars_gt": 481,
+   "chars_pred": 479,
+   "edit_distance": 2,
+   "char_accuracy": 0.9958,
+   "lines": 23,
+   "stamp_overlap_lines": 1,
+   "elapsed_s": 3.51
+  },
+  {
+   "page": "page_10.png",
+   "page_no": 10,
+   "chars_gt": 452,
+   "chars_pred": 451,
+   "edit_distance": 1,
+   "char_accuracy": 0.9978,
+   "lines": 22,
+   "stamp_overlap_lines": 0,
+   "elapsed_s": 1.65
+  }
+ ]
+}

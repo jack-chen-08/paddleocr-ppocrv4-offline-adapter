@@ -1,0 +1,6 @@
+# OCR 专属重依赖（与 requirements.txt 分开，方便 CI 缓存与镜像分层）
+# 固定版本：PaddleOCR 3.x 与 paddlepaddle 2.x 的 API 不兼容，必须成对锁定。
+paddlepaddle==3.2.2
+paddleocr>=3.0,<4.0
+opencv-python-headless>=4.9
+numpy>=1.26,<3.0

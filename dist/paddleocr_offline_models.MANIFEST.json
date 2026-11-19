@@ -1,0 +1,83 @@
+{
+ "package": "paddleocr_offline_models",
+ "created_at": "2026-11-19T16:04:25Z",
+ "models": {
+  "PP-OCRv4_mobile_det": {
+   "files": 6,
+   "bytes": 4941061
+  },
+  "PP-OCRv4_mobile_rec": {
+   "files": 6,
+   "bytes": 11176100
+  }
+ },
+ "runtime": {
+  "paddleocr": "unknown",
+  "paddlepaddle": "unknown",
+  "numpy": "2.4.6"
+ },
+ "total_bytes": 16117161,
+ "file_count": 12,
+ "files": [
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/.gitattributes",
+   "bytes": 2132,
+   "sha256": "16a369b9b94903ada962eff2255c71a84238e4d8e475b6ce64768b0c1bd4d811"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/README.md",
+   "bytes": 12441,
+   "sha256": "40c91d634a544ebf2cb59c2ffab5fdc540a82e0ce611496d363da289e7151204"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/config.json",
+   "bytes": 2871,
+   "sha256": "25b95390ab0264dc56cd61f88f61e110700eec419bf799e235230a50ff7591a9"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/inference.json",
+   "bytes": 229777,
+   "sha256": "05feef1acb00aa4cd7362b15f7f501fc4f99d7b1fa73c1c871e0c7b1504b0f5c"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/inference.pdiparams",
+   "bytes": 4692937,
+   "sha256": "54a85087b4d31fa3ea4e4aba100169a1ec3e3274cd3352b9068b3cfccbca7829"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_det/inference.yml",
+   "bytes": 903,
+   "sha256": "4f5bd0def48e20194d87d4c184a3ae3007a1299de7fed0ef763d3e7e873e77f6"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/.gitattributes",
+   "bytes": 2132,
+   "sha256": "16a369b9b94903ada962eff2255c71a84238e4d8e475b6ce64768b0c1bd4d811"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/README.md",
+   "bytes": 7793,
+   "sha256": "32ed8e4453fbf39ef330df5535c5a8bcb0d738f164ac26ef9c4e1a4b85d60a23"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/config.json",
+   "bytes": 128091,
+   "sha256": "26773626e73d17b4a6a6a39d15ee3a7820ddd05c3b71251894dc687e8174e81c"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/inference.json",
+   "bytes": 217718,
+   "sha256": "30f78ace76b2cce756abba97eb17f4c79e776d88ad68dd44a787a3db84b407a7"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/inference.pdiparams",
+   "bytes": 10766823,
+   "sha256": "948b8d2ca6ad4bd7b64c0ee3fb838a06db87d4cf57137173ce409c995df21012"
+  },
+  {
+   "path": "official_models/PP-OCRv4_mobile_rec/inference.yml",
+   "bytes": 53543,
+   "sha256": "1207e8ba3d3dad6b99115f7febf515f5ffc0d87ed77366d7a4b4b3f1709c005d"
+  }
+ ]
+}

@@ -1,0 +1,135 @@
+{
+ "cores": 4,
+ "affinity": "affinity=[0, 1, 2, 3]",
+ "cpu": "x86_64",
+ "model": "paddleocr-pp-ocrv4_mobile_det",
+ "samples": 20,
+ "p50_s": 1.805,
+ "p95_s": 3.548,
+ "max_s": 4.391,
+ "min_s": 1.587,
+ "threshold_p95_s": 6.0,
+ "verdict": "PASS",
+ "detail": [
+  {
+   "round": 1,
+   "page": "page_01.png",
+   "elapsed_s": 2.809,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "page_02.png",
+   "elapsed_s": 2.62,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "page_03.png",
+   "elapsed_s": 4.391,
+   "lines": 24
+  },
+  {
+   "round": 1,
+   "page": "page_04.png",
+   "elapsed_s": 1.752,
+   "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "page_05.png",
+   "elapsed_s": 1.685,
+   "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "page_06.png",
+   "elapsed_s": 3.529,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "page_07.png",
+   "elapsed_s": 1.78,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "page_08.png",
+   "elapsed_s": 1.848,
+   "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "page_09.png",
+   "elapsed_s": 3.521,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "page_10.png",
+   "elapsed_s": 1.623,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "page_01.png",
+   "elapsed_s": 1.83,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "page_02.png",
+   "elapsed_s": 1.715,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "page_03.png",
+   "elapsed_s": 3.491,
+   "lines": 24
+  },
+  {
+   "round": 2,
+   "page": "page_04.png",
+   "elapsed_s": 1.587,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "page_05.png",
+   "elapsed_s": 1.677,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "page_06.png",
+   "elapsed_s": 3.548,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "page_07.png",
+   "elapsed_s": 1.74,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "page_08.png",
+   "elapsed_s": 1.724,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "page_09.png",
+   "elapsed_s": 3.494,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "page_10.png",
+   "elapsed_s": 1.675,
+   "lines": 22
+  }
+ ]
+}
