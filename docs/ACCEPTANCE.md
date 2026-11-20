@@ -9,7 +9,7 @@
 
 | # | 验收标准（原文） | 实测结果 | 判定 | 证据 |
 |:-:|:--|:--|:-:|:--|
-| 1 | 10 张虚构测试页的字符级准确率 ≥ 97%（附计算脚本与输出） | 评估集 **15 页**（10 原件 + 5 扫描件）：整体 **99.64%**（编辑距离 25 / 标注 6,910 字符）；**原件 10 页 99.70%**（14 / 4,611）、扫描件 5 页 99.52%（11 / 2,299）；**单页最低 98.98%（scan_15），无单页 < 97%** | **PASS** | `tools/eval_accuracy.py` → `reports/accuracy.json`；日志 `docs/evidence/accuracy_run.log` |
+| 1 | 10 张虚构测试页的字符级准确率 ≥ 97%（附计算脚本与输出） | **主指标严格按工单约定的标准测试集统计**：10 页原件 **99.70%**（编辑距离 14 / 标注 4,611 字符）；另加 5 页扫描畸变样本作鲁棒性补充，两组单列——扫描组 99.52%（11 / 2,299）、15 页整体 99.64%（25 / 6,910），**两组均高于 97% 门槛**，无择优挑样本；**单页最低 98.98%（scan_15），无单页 < 97%** | **PASS** | `tools/eval_accuracy.py` → `reports/accuracy.json`；日志 `docs/evidence/accuracy_run.log` |
 | 2 | 断网环境下容器内识别可正常完成（离线运行日志） | **真容器** `docker run --network none`（镜像由本仓库 Dockerfile 构建，权重在构建期从 `dist/*.tar.gz` 校验解包）：容器内 `socket.create_connection("pypi.org",443)` → **BLOCKED (gaierror)**；同进程完成 page_03 识别：24 行、avg_conf 0.9882、7,223 ms（含引擎初始化） | **PASS** | `tools/ci_offline_proof.sh --docker` → `docs/evidence/docker_offline_proof.log` |
 | 3 | 单页 P95 耗时 ≤ 6 秒（4 核 CPU 压测输出） | 容器内 30 样本（15 页 × 2 轮）、`sched_setaffinity` 绑核 [0,1,2,3]：**P50 1.828 s / P95 3.987 s / max 4.179 s**；独立复跑（同一镜像、`reports/benchmark_run2.json`）P95 **3.537 s** / max 3.933 s。**对 6 s 余量 1.50 倍**（按两轮里较差的一次算，见 §四-③） | **PASS** | `tools/benchmark_p95.py --rounds 2 --cores 4` → `reports/benchmark.json`、`reports/benchmark_run2.json` |
 | 4 | 被印章遮挡的行带 stamp_overlap 标记且置信度已降权（单元测试通过） | `tests/test_stamp.py` 6 + `tests/test_stamp_second_pass.py` 8 全通过（全套 **35 passed**）；降权系数 0.8（`CONFIDENCE_PENALTY`），每行只施加一次；章内环形字整行剔除不进正文 | **PASS** | `docs/evidence/pytest.txt` |
