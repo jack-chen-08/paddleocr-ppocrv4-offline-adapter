@@ -1,0 +1,35 @@
+/app/app/ocr/paddle_engine.py:191: UserWarning: `lang` and `ocr_version` will be ignored when model names or model directories are not `None`.
+  self._ocr = PaddleOCR(**kwargs)
+/usr/local/lib/python3.12/site-packages/paddle/utils/cpp_extension/extension_utils.py:718: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+Creating model: ('PP-OCRv4_mobile_det', '/app/models/official_models/PP-OCRv4_mobile_det', None)
+Creating model: ('PP-OCRv4_mobile_rec', '/app/models/official_models/PP-OCRv4_mobile_rec', None)
+page_01.png  字符= 459  编辑距离=  2  准确率= 99.56%  行= 23  印章行= 0   2.53s
+page_02.png  字符= 453  编辑距离=  1  准确率= 99.78%  行= 23  印章行= 0   2.47s
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (3826 ms total)
+page_03.png  字符= 480  编辑距离=  0  准确率=100.00%  行= 24  印章行= 1   3.86s
+page_04.png  字符= 452  编辑距离=  1  准确率= 99.78%  行= 22  印章行= 0   1.78s
+page_05.png  字符= 451  编辑距离=  1  准确率= 99.78%  行= 22  印章行= 0   2.11s
+[ocr] page 6: dropped 6 ring-text lines inside stamp
+[ocr] page 6: stamp two-pass added 4 / replaced 0 line(s) (3892 ms total)
+page_06.png  字符= 491  编辑距离=  4  准确率= 99.19%  行= 23  印章行= 1   3.92s
+page_07.png  字符= 452  编辑距离=  1  准确率= 99.78%  行= 23  印章行= 0   1.83s
+page_08.png  字符= 440  编辑距离=  1  准确率= 99.77%  行= 22  印章行= 0   1.93s
+[ocr] page 9: dropped 5 ring-text lines inside stamp
+[ocr] page 9: stamp two-pass added 2 / replaced 0 line(s) (3713 ms total)
+page_09.png  字符= 481  编辑距离=  2  准确率= 99.58%  行= 23  印章行= 1   3.76s
+page_10.png  字符= 452  编辑距离=  1  准确率= 99.78%  行= 22  印章行= 0   2.09s
+scan_11.png  字符= 453  编辑距离=  1  准确率= 99.78%  行= 23  印章行= 0   1.70s
+scan_12.png  字符= 452  编辑距离=  0  准确率=100.00%  行= 22  印章行= 0   1.47s
+scan_13.png  字符= 451  编辑距离=  4  准确率= 99.11%  行= 22  印章行= 0   2.05s
+scan_14.png  字符= 452  编辑距离=  1  准确率= 99.78%  行= 23  印章行= 0   2.01s
+[ocr] page 15: dropped 6 ring-text lines inside stamp
+[ocr] page 15: stamp two-pass added 1 / replaced 3 line(s) (3299 ms total)
+scan_15.png  字符= 491  编辑距离=  5  准确率= 98.98%  行= 23  印章行= 1   3.43s
+------------------------------------------------------------------------------
+clean    10 页  编辑距离  14 /  4611 字符  准确率  99.70%
+scanned   5 页  编辑距离  11 /  2299 字符  准确率  99.52%
+整体字符级准确率 = 99.64%  （阈值 97.00%）  判定：PASS
+已写入 /app/reports/accuracy.json
+AC1_RC=0
