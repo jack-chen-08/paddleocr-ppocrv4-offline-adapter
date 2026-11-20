@@ -8,9 +8,11 @@
 > text, bounding boxes and confidence, writes results to object storage
 > (`ocr/{contract_id}/{page_no}.json`) and queues every page for manual
 > review. It never computes amounts and never writes contract business
-> fields. Measured on 4 CPU cores (clean unzip of the delivery archive):
-> 99.70% character accuracy, per-page P95 = 3.92 s (target ≤ 6 s; second
-> independent re-run 4.33 s).
+> fields. All numbers below come from one run inside the built image
+> (`docker run --network none`) on 4 pinned cores: **99.64% character
+> accuracy over 15 fictional pages** (99.70% on the 10 clean pages, 99.52%
+> on the 5 scanned pages, lowest single page 98.98%), **per-page P95 =
+> 4.43 s** (target ≤ 6 s; second independent container run 4.19 s).
 
 ---
 
@@ -41,9 +43,10 @@ app/ocr/
   deps.py           引擎单例 + DB session 装配
 app/routers/ocr.py  HTTP 端点
 tools/              测试页生成 / 准确率评估 / 逐页核对 / P95 压测 / 离线验证
-data/               10 页虚构合同（1654×2339 @200dpi）+ 行级标注
-models/             离线模型权重（随仓库分发，运行时零外网）
-reports/            实测报告（accuracy / benchmark / offline_verify）
+data/               15 页虚构合同（10 页原件 + 5 页扫描件，1654×2339 @200dpi）+ 行级标注
+models/             本地权重目录（**不入库**：official_models/ 已 gitignore，仓库里只有缓存锁文件）
+dist/               离线权重包 paddleocr_offline_models.tar.gz（13.7 MiB）+ sha256 + MANIFEST
+reports/            实测报告（accuracy / benchmark / benchmark_run2 / page_audit）
 ```
 
 ## 三、快速开始
@@ -61,14 +64,19 @@ curl http://127.0.0.1:8000/healthz
 ### 容器（推荐用于客户环境）
 
 ```bash
-docker build -t member-ocr:1.0 .          # 首次构建约 10 分钟（含依赖层）
+docker build -t member-ocr:1.0 .          # 首次构建约 6 分钟（实测；依赖层走镜像源）
 docker run -d -p 8000:8000 -v $PWD/data:/app/data --name ocr member-ocr:1.0
 docker exec ocr python -c "import socket; socket.create_connection(('pypi.org',443),3)"
 # 预期抛 gaierror —— 容器内无外网也能正常识别
 ```
 
-镜像约 1.0 GB（paddle 运行时 ~700 MB + 模型 154 MB）。模型权重随镜像分发，
+**镜像实测 2.6 GB**（`docker images member-ocr:1.0`）：paddlepaddle CPU 轮子解包后
+约 1.1 GB，paddleocr + opencv + numpy 等运行时约 1.4 GB，**离线权重包本体只有
+13.7 MiB**（解包约 16 MB，构建期校验 sha256 后解到 `/app/models`）。
+权重在**构建期**从仓库内 `dist/*.tar.gz` 解包，运行期零外网：
 **部署环境不需要 pip、不需要 HuggingFace、不需要任何外部 OCR 云服务**。
+（构建期只有 PyPI 拉轮子需要联网，默认走清华镜像，海外可
+`--build-arg PIP_INDEX_URL=https://pypi.org/simple`。）
 
 ## 四、API
 
@@ -88,38 +96,54 @@ curl -F "file=@scan_p1.png" \
 
 ## 五、实测指标
 
-评估集：10 页 A4 虚构合同（1654×2339 @200 dpi，232 行标注，3 页带红章），
-4 核 CPU、无 GPU、`sched_setaffinity` 绑核。
+**全部数字出自同一次提交、同一个镜像内的单次运行**（`docker run --network none`），
+原始日志在 `docs/evidence/`，原始 JSON 在 `reports/`。
+
+评估集：15 页 A4 虚构合同（1654×2339 @ 200 dpi，10 页原件 + 5 页扫描件，4 页带红章），
+4 核 CPU、无 GPU、`sched_setaffinity` 绑核 `[0,1,2,3]`。
 
 | 指标 | 实测 | 目标 | 判定 |
 |:--|:--|:--|:--|
-| 字符级准确率（1 − CER） | **99.70%** | ≥ 97% | PASS |
-| 单页延迟 P50 | 1.805 s | — | — |
-| 单页延迟 P95 | **3.548 s**（max 4.391 s） | ≤ 6 s | PASS |
-| 离线（断网）单页识别 | 4.39 s / 24 行 | 必须可离线 | PASS |
+| 字符级准确率（1 − CER），15 页整体 | **99.64%**（编辑距离 25 / 6,910 字符） | ≥ 97% | PASS |
+| ├ 10 页原件 | 99.70%（14 / 4,611） | — | — |
+| └ 5 页扫描件 | 99.52%（11 / 2,299） | — | — |
+| 单页准确率最低值 | **98.98%**（scan_15） | 无单页 < 97% | PASS |
+| 单页延迟 P50 | 1.828 s | — | — |
+| 单页延迟 P95 | **3.987 s**（max 4.179 s） | ≤ 6 s | PASS |
+| 离线（`--network none` 容器内）单页识别 | 24 行 / 均置信度 0.9882 / 7.223 ms（含引擎初始化） | 必须可离线 | PASS |
+| 单元测试 | 35 passed | 全绿 | PASS |
 
-逐页：p01 99.56%，p02 99.78%，p03 **100.00%**，p04 99.78%，p05 99.78%，p06 99.19%，
-p07 99.78%，p08 99.77%，p09 99.58%，p10 99.78%。整体 99.70%（编辑距离合计 14 / 标注 4,611 字符），
-**单页最低 99.19%，10 页全部 ≥ 97%**。
+> 余量交代：P95 3.987 s 对 6 s 的余量是 **1.50 倍**，不是舒适区。第二次独立容器运行
+> P95 3.537 s / max 3.933 s（`reports/benchmark_run2.json`），两次落在 3.54–3.99 s。
+> 4 核被其它进程抢占时单页 max 会涨（见「九、已知边界」）。
+
+逐页（原件）：p01 99.56%，p02 99.78%，p03 **100.00%**，p04 99.78%，p05 99.78%，p06 99.19%，
+p07 99.78%，p08 99.77%，p09 99.58%，p10 99.78%。
+逐页（扫描件）：s11 99.78%，s12 **100.00%**，s13 99.11%，s14 99.78%，s15 98.98%。
+**单页最低 98.98%，15 页全部 ≥ 97%**，行级差异见 `reports/page_audit.md`。
 
 > p03 原 96.67%：红章压盖使整行「乙方（盖章）：沐石供应链有限公司」在检测阶段丢失。现已加
 > **R 通道二次识别**（红墨在 R 通道近纸白、黑字仍暗）加固到 100.00%，仅在含印章页触发，
 > 详见 `docs/ACCEPTANCE.md` §四-②。
 
-复现：
+复现（干净克隆即可，仓库自带权重包，不需要任何外部下载）：
 
 ```bash
-PYTHONPATH=. .venv/bin/python tools/gen_test_pages.py       # 重建测试集
-PYTHONPATH=. .venv/bin/python tools/eval_accuracy.py        # → reports/accuracy.json
-PYTHONPATH=. .venv/bin/python tools/benchmark_p95.py        # → reports/benchmark.json
-bash tools/verify_offline.sh 3                              # → reports/offline_verify.json
-PYTHONPATH=. .venv/bin/python tools/audit_pages.py --detail  # → reports/page_audit.md 逐页行级差异
+git clone https://github.com/jack-chen-08/paddleocr-ppocrv4-offline-adapter && cd paddleocr-ppocrv4-offline-adapter
+docker build -t member-ocr:1.0 .                    # 构建期校验 sha256 并解包权重
+bash tools/ci_offline_proof.sh --docker             # AC2：--network none 容器内跑一页
+docker run --rm --network none -v $PWD/data:/app/data:ro -v $PWD/reports:/app/reports \
+  member-ocr:1.0 python tools/eval_accuracy.py      # AC1 → reports/accuracy.json
+docker run --rm --network none -v $PWD/data:/app/data:ro -v $PWD/reports:/app/reports \
+  member-ocr:1.0 python tools/benchmark_p95.py --rounds 2 --cores 4   # AC3 → reports/benchmark.json
+python3 -m pytest tests/ -q                         # 35 passed（测试依赖在开发侧装）
 ```
 
 模型选型依据：任务指定 **PP-OCRv4 中文**。选 mobile 而非 server —— server 模型在 4 核 CPU
-上单页 > 20 s，直接违反 P95 ≤ 6 s；v4 mobile + 长边 960 实测 1.6–4.4 s（上限为印章页二次识别），余量 ≈1.7 倍。
-精度上 v4 mobile（99.70%）与 v5 mobile（99.72%）基本持平，两者均过 97% 阈值；如需换回可用
-环境变量切回 v5（`PADDLE_OCR_DET_MODEL_NAME=PP-OCRv5_mobile_det`），代价是 P95 升到 2.53 s。
+上单页 > 20 s，直接违反 P95 ≤ 6 s；v4 mobile + 长边 960 实测单页 1.5–4.8 s（上限为印章页
+二次识别），P95 3.987 s，余量 1.50 倍。
+精度上 v4 mobile（99.64%）与 v5 mobile（99.72%）基本持平，两者均过 97% 阈值；如需换回可用
+环境变量切回 v5（`PADDLE_OCR_DET_MODEL_NAME=PP-OCRv5_mobile_det`）。
 
 ## 六、印章处理规则
 
@@ -129,7 +153,7 @@ PYTHONPATH=. .venv/bin/python tools/audit_pages.py --detail  # → reports/page_
    （`CONFIDENCE_PENALTY`），供下游核对时优先复核。判定用**像素级**——印章
    半透明，行框几何覆盖率不可靠。
 3. **环形字剔除**：整行落在章内且行高远小于章直径、ROI 内无黑色笔画 → 判为
-   印章自带环形文字，不进正文（实测 p03 剔 5 行、p06 剔 2 行、p09 剔 3 行）。
+   印章自带环形文字，不进正文（实测 p03 剔 7 行、p06 剔 6 行、p09 剔 5 行、s15 剔 6 行）。
 
 ## 七、归一化口径
 
@@ -139,7 +163,7 @@ PYTHONPATH=. .venv/bin/python tools/audit_pages.py --detail  # → reports/page_
 ## 八、测试
 
 ```bash
-PYTHONPATH=. .venv/bin/python -m pytest tests/ -q     # 30 passed
+PYTHONPATH=. python3 -m pytest tests/ -q     # 35 passed（原始输出 docs/evidence/pytest.txt）
 ```
 
 | 用例 | 覆盖 |
@@ -156,4 +180,4 @@ PYTHONPATH=. .venv/bin/python -m pytest tests/ -q     # 30 passed
 - **印章覆盖超过 50%**：该行文字残缺，靠 `stamp_overlap` 标记转人工，不追求自动补全。
 - **扫描倾斜 > 5°**：准确率下降，建议前置纠偏（`cv2.minAreaRect` 旋转）。
 - **表格线密集的页面**：行切分可能把一行拆成多段，属检测模型固有行为。
-- 准确率 99.70% 是**自建评估集**结果，客户真实扫描件需按其样张复测后再确认验收口径。
+- 准确率 99.64%（原件 99.70% / 扫描件 99.52%）是**自建评估集**结果，客户真实扫描件需按其样张复测后再确认验收口径。

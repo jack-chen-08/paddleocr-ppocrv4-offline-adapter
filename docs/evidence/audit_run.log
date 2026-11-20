@@ -1,0 +1,154 @@
+/app/app/ocr/paddle_engine.py:191: UserWarning: `lang` and `ocr_version` will be ignored when model names or model directories are not `None`.
+  self._ocr = PaddleOCR(**kwargs)
+/usr/local/lib/python3.12/site-packages/paddle/utils/cpp_extension/extension_utils.py:718: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+[32mCreating model: ('PP-OCRv4_mobile_det', '/app/models/official_models/PP-OCRv4_mobile_det', None)[0m
+[32mCreating model: ('PP-OCRv4_mobile_rec', '/app/models/official_models/PP-OCRv4_mobile_rec', None)[0m
+page_01  acc= 99.56%  dist=  2/ 459  lines gt/pred=24/23   2671.9 ms
+page_02  acc= 99.78%  dist=  1/ 453  lines gt/pred=24/23   2070.2 ms
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (4050 ms total)
+page_03  acc=100.00%  dist=  0/ 480  lines gt/pred=24/24   4084.5 ms
+page_04  acc= 99.78%  dist=  1/ 452  lines gt/pred=22/22   1813.8 ms
+page_05  acc= 99.78%  dist=  1/ 451  lines gt/pred=22/22   1785.7 ms
+[ocr] page 6: dropped 6 ring-text lines inside stamp
+[ocr] page 6: stamp two-pass added 4 / replaced 0 line(s) (3878 ms total)
+page_06  acc= 99.19%  dist=  4/ 491  lines gt/pred=24/23   3918.3 ms
+page_07  acc= 99.78%  dist=  1/ 452  lines gt/pred=24/23   2264.1 ms
+page_08  acc= 99.77%  dist=  1/ 440  lines gt/pred=23/22   1930.9 ms
+[ocr] page 9: dropped 5 ring-text lines inside stamp
+[ocr] page 9: stamp two-pass added 2 / replaced 0 line(s) (3511 ms total)
+page_09  acc= 99.58%  dist=  2/ 481  lines gt/pred=23/23   3545.6 ms
+page_10  acc= 99.78%  dist=  1/ 452  lines gt/pred=22/22   1663.7 ms
+page_11  acc= 99.78%  dist=  1/ 453  lines gt/pred=24/23   1578.9 ms
+page_12  acc=100.00%  dist=  0/ 452  lines gt/pred=22/22   1523.5 ms
+page_13  acc= 99.11%  dist=  4/ 451  lines gt/pred=22/22   1882.8 ms
+page_14  acc= 99.78%  dist=  1/ 452  lines gt/pred=24/23   1913.2 ms
+[ocr] page 15: dropped 6 ring-text lines inside stamp
+[ocr] page 15: stamp two-pass added 1 / replaced 3 line(s) (3357 ms total)
+page_15  acc= 98.98%  dist=  5/ 491  lines gt/pred=24/23   3478.0 ms
+OVERALL  acc= 99.64%  dist=25/6910  total=36.13 s
+
+===== page_01 (99.56%) =====
+  行7
+    标注: ；质保期满支付 10%。
+    识别: ；质保期满支付10%
+    差异: ；质保期满支付10%[漏『。』]
+  行13
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_02 (99.78%) =====
+  行9
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_03 (100.0%) =====
+
+===== page_04 (99.78%) =====
+  行15
+    标注: ；质保期满支付 10%。
+    识别: ；质保期满支付10%
+    差异: ；质保期满支付10%[漏『。』]
+
+===== page_05 (99.78%) =====
+  行11
+    标注: ；质保期满支付 10%。
+    识别: ；质保期满支付10%
+    差异: ；质保期满支付10%[漏『。』]
+
+===== page_06 (99.19%) =====
+  行8
+    标注: ；质保期满支付 10%。
+    识别: ；质保期满支付10%
+    差异: ；质保期满支付10%[漏『。』]
+  行15
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+  行21
+    标注: 乙方（盖章）：南屿数据科技有限公司
+    识别: 乙方(盖章):南屿数据科技有限
+    差异: 乙方(盖章)…数据科技有限[漏『公司』]
+
+===== page_07 (99.78%) =====
+  行11
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_08 (99.77%) =====
+  行7
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_09 (99.58%) =====
+  行20
+    标注: 乙方（盖章）：启衡商务服务有限公司
+    识别: 乙方(盖章):启衡商务服务有限
+    差异: 乙方(盖章)…商务服务有限[漏『公司』]
+
+===== page_10 (99.78%) =====
+  行13
+    标注: ；质保期满支付 10%。
+    识别: ；质保期满支付10%
+    差异: ；质保期满支付10%[漏『。』]
+
+===== page_11 (99.78%) =====
+  行9
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_12 (100.0%) =====
+
+===== page_13 (99.11%) =====
+  行9
+    标注: 第二条 合同价款。本合同总价为人民币 １２８，０００.００ 元（含税），价款支付节点见第三条。
+    识别: 第二条 合同价款。本合同总价为人民币 1 2 8 ， 0 0 0.0 0 元 (含税) ，价款支付节点见第三条。
+    差异: 第二条合同价…人民币128[错『,』→『，』]000.00…点见第三条。
+  行10
+    标注: 第三条 付款方式。合同生效后 5 个工作日内甲方支付 30%；阶段验收通过后 10 个工作日内支付 60%
+    识别: 第三条 付款方式。 合同生效后 5 个工作日内甲方支付 30% ;阶段验收通过后 10 个工作日内支付 60%
+    差异: 第三条付款方…方支付30%[错『；』→『;』]阶段验收通过…内支付60%
+  行11
+    标注: ；质保期满支付 10%。
+    识别: ; 质保期满支付 10%。
+    差异: [错『；』→『;』]质保期满支付10%。
+  行19
+    标注: 乙方（盖章）：启衡商务服务有限公司
+    识别: 乙方 (盖章) :后衡商务服务有限公司
+    差异: 乙方(盖章):[错『启』→『后』]衡商务服务有限公司
+
+===== page_14 (99.78%) =====
+  行11
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+
+===== page_15 (98.98%) =====
+  行6
+    标注: 第二条 合同价款。本合同总价为人民币 １２８，０００.００ 元（含税），价款支付节点见第三条。
+    识别: 第二条合同价款。本合同总价为人民币 1 2 8 ，0 0 0 .0 0 元(含税)，价款支付节点见第三条。
+    差异: 第二条合同价…人民币128[错『,』→『，』]000.00…点见第三条。
+  行7
+    标注: 第三条 付款方式。合同生效后 5 个工作日内甲方支付 30%；阶段验收通过后 10 个工作日内支付 60%
+    识别: 第三条 付款方式。 合同生效后 5 个工作日内甲方支付 30% ;阶段验收通过后 10 个工作日内支付 60%
+    差异: 第三条付款方…方支付30%[错『；』→『;』]阶段验收通过…内支付60%
+  行8
+    标注: ；质保期满支付 10%。
+    识别: ; 质保期满支付 10%。
+    差异: [错『；』→『;』]质保期满支付10%。
+  行10
+    标注: 第四条 交付周期。乙方应于 2026 年 3 月 31 日前完成全部交付；因甲方原因导致的延误，交付期相应
+    识别: 第四条 交付周期。 乙方应于 2026 年 3 月 31 日前完成全部交付;因甲方原因导致的延误，交付期相应
+    差异: 第四条交付周…完成全部交付[错『；』→『;』]因甲方原因导…，交付期相应
+  行15
+    标注: 。
+    识别: None
+    差异: [漏『。』]
+写出 /app/reports/page_audit.md
+写出 /app/reports/page_audit.json

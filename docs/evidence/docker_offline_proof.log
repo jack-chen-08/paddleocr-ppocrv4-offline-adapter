@@ -1,0 +1,83 @@
+=== 模式：docker build + docker run --network none（字面意义的容器内）===
+--- 1. 构建（Dockerfile 在构建期解包 dist/*.tar.gz 到 /app/models 并校验 sha256）
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  352.4MB
+Step 1/18 : FROM python:3.12-slim AS base
+ ---> 5e2bdb1b0d54
+Step 2/18 : ENV PYTHONDONTWRITEBYTECODE=1     PYTHONUNBUFFERED=1     PIP_NO_CACHE_DIR=1     HF_HUB_OFFLINE=1     TRANSFORMERS_OFFLINE=1     PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
+ ---> Using cache
+ ---> 4fc3e66ae7fd
+Step 3/18 : RUN apt-get update && apt-get install -y --no-install-recommends         libgl1 libglib2.0-0 libgomp1 libsm6 libxext6 curl     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> f868b05e7e7b
+Step 4/18 : WORKDIR /app
+ ---> Using cache
+ ---> dc4841684cf3
+Step 5/18 : ARG PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+ ---> Using cache
+ ---> 65193bce170c
+Step 6/18 : COPY requirements.txt requirements-ocr.txt ./
+ ---> Using cache
+ ---> da9f594a400a
+Step 7/18 : RUN pip install --no-cache-dir -i "$PIP_INDEX_URL" -r requirements.txt     && pip install --no-cache-dir -i "$PIP_INDEX_URL" -r requirements-ocr.txt     && pip config set global.index-url "$PIP_INDEX_URL"
+ ---> Using cache
+ ---> 6edb6c15e884
+Step 8/18 : COPY dist/paddleocr_offline_models.tar.gz      dist/paddleocr_offline_models.tar.gz.sha256      dist/paddleocr_offline_models.MANIFEST.json      /tmp/models_pkg/
+ ---> Using cache
+ ---> a06c6c508c92
+Step 9/18 : RUN cd /tmp/models_pkg     && sha256sum -c paddleocr_offline_models.tar.gz.sha256     && mkdir -p /app/models     && tar -xzf paddleocr_offline_models.tar.gz -C /app/models     && test -s /app/models/official_models/PP-OCRv4_mobile_det/inference.pdiparams     && test -s /app/models/official_models/PP-OCRv4_mobile_det/inference.json     && test -s /app/models/official_models/PP-OCRv4_mobile_rec/inference.pdiparams     && test -s /app/models/official_models/PP-OCRv4_mobile_rec/inference.json     && rm -rf /tmp/models_pkg     && du -sh /app/models
+ ---> Using cache
+ ---> 8df5426fa4ae
+Step 10/18 : ENV PADDLE_OCR_DET_MODEL_DIR=/app/models/official_models/PP-OCRv4_mobile_det     PADDLE_OCR_REC_MODEL_DIR=/app/models/official_models/PP-OCRv4_mobile_rec     PADDLE_PDX_CACHE_HOME=/app/models
+ ---> Using cache
+ ---> 9ce3b92a5c27
+Step 11/18 : COPY app/ /app/app/
+ ---> Using cache
+ ---> 956be658ed0c
+Step 12/18 : COPY tools/ /app/tools/
+ ---> Using cache
+ ---> f1e13897a9ad
+Step 13/18 : RUN python -c "from app.ocr.paddle_engine import resolve_model_dir as r; d=r('PADDLE_OCR_DET_MODEL_DIR','PP-OCRv4_mobile_det'); c=r('PADDLE_OCR_REC_MODEL_DIR','PP-OCRv4_mobile_rec'); print('weights ok:', d, c)"
+ ---> Using cache
+ ---> 8850e24679c3
+Step 14/18 : RUN useradd -m -u 10001 appuser && chown -R appuser:appuser /app
+ ---> Using cache
+ ---> 5def7f3f001e
+Step 15/18 : USER appuser
+ ---> Using cache
+ ---> ee74de8a5fe3
+Step 16/18 : EXPOSE 8000
+ ---> Using cache
+ ---> cea3e28534a6
+Step 17/18 : HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3     CMD curl -fsS http://127.0.0.1:8000/healthz || exit 1
+ ---> Using cache
+ ---> d0887449490b
+Step 18/18 : CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ ---> Using cache
+ ---> 47f6d919d413
+Successfully built 47f6d919d413
+Successfully tagged member-ocr:offline
+--- 2. 断网容器内跑一页识别（镜像内已设 PADDLE_OCR_DET/REC_MODEL_DIR）
+[proof] det_model_dir = /app/models/official_models/PP-OCRv4_mobile_det
+[proof] rec_model_dir = /app/models/official_models/PP-OCRv4_mobile_rec
+[proof] NETWORK: BLOCKED -> gaierror: [Errno -3] Temporary failure in name resolution
+/app/app/ocr/paddle_engine.py:191: UserWarning: `lang` and `ocr_version` will be ignored when model names or model directories are not `None`.
+  self._ocr = PaddleOCR(**kwargs)
+/usr/local/lib/python3.12/site-packages/paddle/utils/cpp_extension/extension_utils.py:718: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+[32mCreating model: ('PP-OCRv4_mobile_det', '/app/models/official_models/PP-OCRv4_mobile_det', None)[0m
+[32mCreating model: ('PP-OCRv4_mobile_rec', '/app/models/official_models/PP-OCRv4_mobile_rec', None)[0m
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (4367 ms total)
+[proof] page          = page_03.png
+[proof] lines         = 24
+[proof] avg_confidence= 0.9882
+[proof] stamp_overlap = 1 line(s)
+[proof] elapsed       = 7223 ms (engine init + inference)
+[proof]   0.9998  产业资源对接服务合同
+[proof]   0.9998  合同编号:HT-2026-003
+[proof]   0.9991  甲方(委托方):星澜产业园管理有限公司
+[proof] RESULT: OK — 断网状态下识别完成

@@ -59,7 +59,7 @@ MISS=0
 for k in README.md DELIVERY.md docs/ACCEPTANCE.md tools/package_models.sh tools/verify_offline.sh \
          tools/eval_accuracy.py tools/benchmark_p95.py tools/audit_pages.py \
          tests/test_stamp_second_pass.py reports/page_audit.md \
-         reports/accuracy.json reports/benchmark.json reports/offline_verify.json \
+         reports/accuracy.json reports/benchmark.json reports/benchmark_run2.json reports/page_audit.md \
          dist/paddleocr_offline_models.tar.gz dist/paddleocr_offline_models.tar.gz.sha256 \
          data/labels.json app/ocr/paddle_engine.py app/ocr/types.py; do
   if grep -Fxq "$NAME/$k" "$LIST"; then echo "OK   $k"; else echo "MISS $k"; MISS=$((MISS+1)); fi

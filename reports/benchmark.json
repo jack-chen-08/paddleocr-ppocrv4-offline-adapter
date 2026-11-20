@@ -3,133 +3,239 @@
  "affinity": "affinity=[0, 1, 2, 3]",
  "cpu": "x86_64",
  "model": "paddleocr-pp-ocrv4_mobile_det",
- "samples": 20,
- "p50_s": 1.805,
- "p95_s": 3.548,
- "max_s": 4.391,
- "min_s": 1.587,
+ "pages": 15,
+ "rounds": 2,
+ "samples": 30,
+ "p50_s": 1.828,
+ "p95_s": 3.987,
+ "max_s": 4.179,
+ "min_s": 1.485,
  "threshold_p95_s": 6.0,
  "verdict": "PASS",
+ "groups": {
+  "clean": {
+   "samples": 20,
+   "p50_s": 1.82,
+   "p95_s": 4.095,
+   "max_s": 4.179
+  },
+  "scanned": {
+   "samples": 10,
+   "p50_s": 1.833,
+   "p95_s": 3.473,
+   "max_s": 3.473
+  }
+ },
  "detail": [
   {
    "round": 1,
    "page": "page_01.png",
-   "elapsed_s": 2.809,
+   "variant": "clean",
+   "elapsed_s": 2.723,
    "lines": 23
   },
   {
    "round": 1,
    "page": "page_02.png",
-   "elapsed_s": 2.62,
+   "variant": "clean",
+   "elapsed_s": 2.235,
    "lines": 23
   },
   {
    "round": 1,
    "page": "page_03.png",
-   "elapsed_s": 4.391,
+   "variant": "clean",
+   "elapsed_s": 4.095,
    "lines": 24
   },
   {
    "round": 1,
    "page": "page_04.png",
-   "elapsed_s": 1.752,
+   "variant": "clean",
+   "elapsed_s": 1.811,
    "lines": 22
   },
   {
    "round": 1,
    "page": "page_05.png",
-   "elapsed_s": 1.685,
+   "variant": "clean",
+   "elapsed_s": 1.778,
    "lines": 22
   },
   {
    "round": 1,
    "page": "page_06.png",
-   "elapsed_s": 3.529,
+   "variant": "clean",
+   "elapsed_s": 3.987,
    "lines": 23
   },
   {
    "round": 1,
    "page": "page_07.png",
-   "elapsed_s": 1.78,
+   "variant": "clean",
+   "elapsed_s": 1.792,
    "lines": 23
   },
   {
    "round": 1,
    "page": "page_08.png",
-   "elapsed_s": 1.848,
+   "variant": "clean",
+   "elapsed_s": 1.791,
    "lines": 22
   },
   {
    "round": 1,
    "page": "page_09.png",
-   "elapsed_s": 3.521,
+   "variant": "clean",
+   "elapsed_s": 3.573,
    "lines": 23
   },
   {
    "round": 1,
    "page": "page_10.png",
-   "elapsed_s": 1.623,
+   "variant": "clean",
+   "elapsed_s": 1.639,
    "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "scan_11.png",
+   "variant": "scanned",
+   "elapsed_s": 1.586,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "scan_12.png",
+   "variant": "scanned",
+   "elapsed_s": 1.485,
+   "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "scan_13.png",
+   "variant": "scanned",
+   "elapsed_s": 1.838,
+   "lines": 22
+  },
+  {
+   "round": 1,
+   "page": "scan_14.png",
+   "variant": "scanned",
+   "elapsed_s": 1.885,
+   "lines": 23
+  },
+  {
+   "round": 1,
+   "page": "scan_15.png",
+   "variant": "scanned",
+   "elapsed_s": 3.374,
+   "lines": 23
   },
   {
    "round": 2,
    "page": "page_01.png",
-   "elapsed_s": 1.83,
+   "variant": "clean",
+   "elapsed_s": 1.827,
    "lines": 23
   },
   {
    "round": 2,
    "page": "page_02.png",
-   "elapsed_s": 1.715,
+   "variant": "clean",
+   "elapsed_s": 1.765,
    "lines": 23
   },
   {
    "round": 2,
    "page": "page_03.png",
-   "elapsed_s": 3.491,
+   "variant": "clean",
+   "elapsed_s": 3.731,
    "lines": 24
   },
   {
    "round": 2,
    "page": "page_04.png",
-   "elapsed_s": 1.587,
+   "variant": "clean",
+   "elapsed_s": 1.812,
    "lines": 22
   },
   {
    "round": 2,
    "page": "page_05.png",
-   "elapsed_s": 1.677,
+   "variant": "clean",
+   "elapsed_s": 1.889,
    "lines": 22
   },
   {
    "round": 2,
    "page": "page_06.png",
-   "elapsed_s": 3.548,
+   "variant": "clean",
+   "elapsed_s": 4.179,
    "lines": 23
   },
   {
    "round": 2,
    "page": "page_07.png",
-   "elapsed_s": 1.74,
+   "variant": "clean",
+   "elapsed_s": 1.804,
    "lines": 23
   },
   {
    "round": 2,
    "page": "page_08.png",
-   "elapsed_s": 1.724,
+   "variant": "clean",
+   "elapsed_s": 1.739,
    "lines": 22
   },
   {
    "round": 2,
    "page": "page_09.png",
-   "elapsed_s": 3.494,
+   "variant": "clean",
+   "elapsed_s": 3.559,
    "lines": 23
   },
   {
    "round": 2,
    "page": "page_10.png",
-   "elapsed_s": 1.675,
+   "variant": "clean",
+   "elapsed_s": 1.641,
    "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "scan_11.png",
+   "variant": "scanned",
+   "elapsed_s": 1.586,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "scan_12.png",
+   "variant": "scanned",
+   "elapsed_s": 1.527,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "scan_13.png",
+   "variant": "scanned",
+   "elapsed_s": 1.828,
+   "lines": 22
+  },
+  {
+   "round": 2,
+   "page": "scan_14.png",
+   "variant": "scanned",
+   "elapsed_s": 1.846,
+   "lines": 23
+  },
+  {
+   "round": 2,
+   "page": "scan_15.png",
+   "variant": "scanned",
+   "elapsed_s": 3.473,
+   "lines": 23
   }
  ]
 }

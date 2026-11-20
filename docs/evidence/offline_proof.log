@@ -1,0 +1,31 @@
+# AC2 离线证明 — 实测日志（2026-11-20T08:41:14Z）
+# 命令：bash tools/ci_offline_proof.sh --local
+# 环境：本机 docker socket 无权限，用 unshare -rn（CLONE_NEWNET）等价的网络隔离
+
+=== 模式：unshare -rn（CLONE_NEWNET，与 docker run --network none 同一内核机制）===
+--- 1. 从 dist 解包权重（仓库 models/ 完全不参与）
+paddleocr_offline_models.tar.gz: OK
+16M	/tmp/tmp.UtiUbf6mvt
+--- 2. 断网 + 指向解包后的权重，跑一页
+[32mCreating model: ('PP-OCRv4_mobile_det', '/tmp/tmp.UtiUbf6mvt/official_models/PP-OCRv4_mobile_det', None)[0m
+[32mCreating model: ('PP-OCRv4_mobile_rec', '/tmp/tmp.UtiUbf6mvt/official_models/PP-OCRv4_mobile_rec', None)[0m
+[proof] det_model_dir = /tmp/tmp.UtiUbf6mvt/official_models/PP-OCRv4_mobile_det
+[proof] rec_model_dir = /tmp/tmp.UtiUbf6mvt/official_models/PP-OCRv4_mobile_rec
+[proof] NETWORK: BLOCKED -> gaierror: [Errno -3] Temporary failure in name resolution
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (4631 ms total)
+[proof] page          = page_03.png
+[proof] lines         = 24
+[proof] avg_confidence= 0.9882
+[proof] stamp_overlap = 1 line(s)
+[proof] elapsed       = 6925 ms (engine init + inference)
+[proof]   0.9998  产业资源对接服务合同
+[proof]   0.9998  合同编号:HT-2026-003
+[proof]   0.9991  甲方(委托方):星澜产业园管理有限公司
+[proof] RESULT: OK — 断网状态下识别完成
+
+# fail-closed 证据：权重目录不存在时必须直接报错，不得回落联网下载
+$ PADDLE_OCR_DET_MODEL_DIR=/tmp/nope PYTHONPATH=. .venv/bin/python -c "from app.ocr.paddle_engine import PaddleOcrEngine; PaddleOcrEngine(lang=\"ch\")"
+  File "/home/ubuntuuser/.clawhunt/orders/1912/app/ocr/paddle_engine.py", line 56, in _validate_model_dir
+    raise ModelWeightsMissing(
+app.ocr.paddle_engine.ModelWeightsMissing: 离线权重目录不存在：/tmp/nope（PADDLE_OCR_DET_MODEL_DIR / 模型 PP-OCRv4_mobile_det）。请设置 PADDLE_OCR_DET_MODEL_DIR 指向镜像内的 official_models/PP-OCRv4_mobile_det，或先执行 bash tools/package_models.sh 解包权重。已拒绝回落到在线下载。

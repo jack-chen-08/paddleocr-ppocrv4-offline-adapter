@@ -5,7 +5,7 @@
 这个按行对齐，指到具体是第几行、哪个字符错、错成什么，供人工逐页核对使用。
 
 用法：
-  python tools/audit_pages.py                 # 全部 10 页
+  python tools/audit_pages.py                 # 全部 15 页
   python tools/audit_pages.py --pages 3       # 只看第 3 页（详细模式）
 输出：
   reports/page_audit.md    人读的逐页核对表
@@ -147,6 +147,7 @@ def main() -> None:
             {
                 "page_no": meta["page_no"],
                 "file": name,
+                "variant": "scanned" if meta.get("variant") == "scanned" else "clean",
                 "width": meta["width"],
                 "height": meta["height"],
                 "gt_lines": len(gt_lines),
@@ -174,9 +175,11 @@ def main() -> None:
 
     out_md = Path(args.out_md)
     out_md.parent.mkdir(parents=True, exist_ok=True)
+    n_scanned = sum(1 for pg in pages_out if pg["variant"] == "scanned")
+    n_clean = len(pages_out) - n_scanned
     md = ["# 逐页核对报告", "",
           f"整体字符准确率 **{overall:.2f}%**（编辑距离 {tot_dist} / {tot_len} 字符），"
-          f"10 页总耗时 {tot_ms/1000:.2f} s。", "",
+          f"{n_clean} 张干净页 + {n_scanned} 张扫描模拟页共 {len(pages_out)} 页，总耗时 {tot_ms/1000:.2f} s。", "",
           "## 总览", "",
           "| 页 | 标注行 | 识别行 | 标注字符 | 编辑距离 | 准确率 | 耗时(ms) | 印章区 |",
           "|:--|--:|--:|--:|--:|--:|--:|--:|"]

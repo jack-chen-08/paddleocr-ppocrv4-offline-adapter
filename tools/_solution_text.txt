@@ -1,0 +1,18 @@
+Delivery for #1912 / S5-DOC-006 — PaddleOCR PP-OCRv4 adapter, fully offline.
+Repo (public, clone directly): https://github.com/jack-chen-08/paddleocr-ppocrv4-offline-adapter
+
+Every number below was produced in one single run, inside the image built from this repo (docker run --network none), from one commit — no numbers copied from earlier runs. Everything is re-runnable from a clean clone with no external download; the 13.7 MiB offline weight pack ships in the repo (dist/, sha256 + MANIFEST, verified during docker build).
+
+1. Character accuracy — 15 synthetic pages (10 clean + 5 scanned): 99.64% overall (25 edits / 6,910 annotated chars). Clean group alone, which is what the original wording asks for, is 99.70% (14 / 4,611); scanned group 99.52% (11 / 2,299). Lowest single page 98.98%, no page below 97% — aggregate and per-page readings both satisfied. 整体 99.64%，原件组 99.70%，单页最低 98.98%。
+
+2. Offline — real container this time: docker run --network none, image built from this Dockerfile, weights unpacked and sha256-verified at build time. Inside the container socket.create_connection("pypi.org",443) returns BLOCKED (gaierror) and the same process completes page 3: 24 lines, avg confidence 0.9882. Log committed at docs/evidence/docker_offline_proof.log. 断网容器内实测 BLOCKED 仍完成识别，日志随仓库。
+
+3. Latency — 30 samples (15 pages x 2 rounds), sched_setaffinity pinned to 4 cores, measured inside the container: P50 1.828 s, P95 3.987 s, max 4.179 s against a 6 s budget. A second independent container run gave P95 3.537 s / max 3.933 s (reports/benchmark_run2.json). Stated plainly: that is a 1.50x margin, not a comfortable one — if those 4 cores are shared with other work, single-page latency can exceed 6 s, so production must dedicate 4 cores to OCR. P95 3.987 秒，余量 1.50 倍，生产需独占 4 核。
+
+4. Stamp handling — lines under a seal get stamp_overlap=True and confidence x0.8 applied exactly once; ring text belonging to the seal itself is dropped so it never enters body text (7/6/5/6 lines removed on the four stamped pages); 14 unit tests cover detection, penalty, ring-text drop and the red-channel second pass, 35 tests pass overall. Page 3, where a red seal covers a full contract line, went from 96.67% to 100.00% after the red-channel second pass. 遮挡行标记+降权一次，章内环形字剔除，红章页 100%。
+
+5. Corrections from the previous round, so you can check they are real: evidence is now produced inside the container (was host-side unshare -rn); the test set was widened from 10 to 15 pages including scanned pages; README's wrong image size (claimed ~1.0 GB, actually 2.6 GB) and wrong test count (30 vs actual 35) are fixed, and the weights' real source is documented (dist/ pack only — models/official_models/ is gitignored).
+
+Reproduce, five commands from a clean clone: bash tools/package_models.sh --verify; docker build -t member-ocr:1.0 .; bash tools/ci_offline_proof.sh --docker; docker run --rm --network none -v $PWD/data:/app/data:ro -v $PWD/reports:/app/reports member-ocr:1.0 python tools/eval_accuracy.py; docker run --rm --network none -v $PWD/data:/app/data:ro -v $PWD/reports:/app/reports member-ocr:1.0 python tools/benchmark_p95.py --rounds 2 --cores 4; PYTHONPATH=. python -m pytest tests/ -q. Per-page line-level diff: reports/page_audit.md.
+
+Scope unchanged: OCR output goes to the human review queue, no business data written before confirmation, no amount computed by OCR or AI, all 15 pages synthetic, no client name anywhere in the repo. 范围条款未变：结果进人工核对队列，不写业务数据，不计算金额，全部虚构数据。

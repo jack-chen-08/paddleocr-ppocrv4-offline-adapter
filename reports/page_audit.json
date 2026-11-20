@@ -1,11 +1,12 @@
 {
-  "overall_accuracy_pct": 99.7,
-  "total_dist": 14,
-  "total_chars": 4611,
+  "overall_accuracy_pct": 99.64,
+  "total_dist": 25,
+  "total_chars": 6910,
   "pages": [
     {
       "page_no": 1,
       "file": "page_01.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 24,
@@ -13,7 +14,7 @@
       "gt_chars": 459,
       "dist": 2,
       "accuracy_pct": 99.56,
-      "elapsed_ms": 2292.3,
+      "elapsed_ms": 2671.9,
       "stamp_regions": 0,
       "rows": [
         {
@@ -261,6 +262,7 @@
     {
       "page_no": 2,
       "file": "page_02.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 24,
@@ -268,7 +270,7 @@
       "gt_chars": 453,
       "dist": 1,
       "accuracy_pct": 99.78,
-      "elapsed_ms": 1947.3,
+      "elapsed_ms": 2070.2,
       "stamp_regions": 0,
       "rows": [
         {
@@ -516,6 +518,7 @@
     {
       "page_no": 3,
       "file": "page_03.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 24,
@@ -523,7 +526,7 @@
       "gt_chars": 480,
       "dist": 0,
       "accuracy_pct": 100.0,
-      "elapsed_ms": 3635.0,
+      "elapsed_ms": 4084.5,
       "stamp_regions": 1,
       "rows": [
         {
@@ -771,6 +774,7 @@
     {
       "page_no": 4,
       "file": "page_04.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 22,
@@ -778,7 +782,7 @@
       "gt_chars": 452,
       "dist": 1,
       "accuracy_pct": 99.78,
-      "elapsed_ms": 1713.0,
+      "elapsed_ms": 1813.8,
       "stamp_regions": 0,
       "rows": [
         {
@@ -1006,6 +1010,7 @@
     {
       "page_no": 5,
       "file": "page_05.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 22,
@@ -1013,7 +1018,7 @@
       "gt_chars": 451,
       "dist": 1,
       "accuracy_pct": 99.78,
-      "elapsed_ms": 1749.3,
+      "elapsed_ms": 1785.7,
       "stamp_regions": 0,
       "rows": [
         {
@@ -1241,6 +1246,7 @@
     {
       "page_no": 6,
       "file": "page_06.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 24,
@@ -1248,7 +1254,7 @@
       "gt_chars": 491,
       "dist": 4,
       "accuracy_pct": 99.19,
-      "elapsed_ms": 4339.7,
+      "elapsed_ms": 3918.3,
       "stamp_regions": 1,
       "rows": [
         {
@@ -1496,6 +1502,7 @@
     {
       "page_no": 7,
       "file": "page_07.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 24,
@@ -1503,7 +1510,7 @@
       "gt_chars": 452,
       "dist": 1,
       "accuracy_pct": 99.78,
-      "elapsed_ms": 2132.0,
+      "elapsed_ms": 2264.1,
       "stamp_regions": 0,
       "rows": [
         {
@@ -1751,6 +1758,7 @@
     {
       "page_no": 8,
       "file": "page_08.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 23,
@@ -1758,7 +1766,7 @@
       "gt_chars": 440,
       "dist": 1,
       "accuracy_pct": 99.77,
-      "elapsed_ms": 2063.6,
+      "elapsed_ms": 1930.9,
       "stamp_regions": 0,
       "rows": [
         {
@@ -1996,6 +2004,7 @@
     {
       "page_no": 9,
       "file": "page_09.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 23,
@@ -2003,7 +2012,7 @@
       "gt_chars": 481,
       "dist": 2,
       "accuracy_pct": 99.58,
-      "elapsed_ms": 3820.7,
+      "elapsed_ms": 3545.6,
       "stamp_regions": 1,
       "rows": [
         {
@@ -2241,6 +2250,7 @@
     {
       "page_no": 10,
       "file": "page_10.png",
+      "variant": "clean",
       "width": 1654,
       "height": 2339,
       "gt_lines": 22,
@@ -2248,7 +2258,7 @@
       "gt_chars": 452,
       "dist": 1,
       "accuracy_pct": 99.78,
-      "elapsed_ms": 1925.7,
+      "elapsed_ms": 1663.7,
       "stamp_regions": 0,
       "rows": [
         {
@@ -2470,6 +2480,1246 @@
           "diff": "",
           "stamp_overlap": false,
           "confidence": 0.9902
+        }
+      ]
+    },
+    {
+      "page_no": 11,
+      "file": "scan_11.png",
+      "variant": "scanned",
+      "width": 1654,
+      "height": 2339,
+      "gt_lines": 24,
+      "pred_lines": 23,
+      "gt_chars": 453,
+      "dist": 1,
+      "accuracy_pct": 99.78,
+      "elapsed_ms": 1578.9,
+      "stamp_regions": 0,
+      "rows": [
+        {
+          "gt_no": 1,
+          "gt": "产业资源对接服务合同",
+          "pred": "产业资源对接服务合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 2,
+          "gt": "合同编号：HT-2026-002",
+          "pred": "合同编号:HT-2026-002",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9987
+        },
+        {
+          "gt_no": 3,
+          "gt": "甲方（委托方）：青禾空间运营有限公司",
+          "pred": "甲方(委托方):青禾空间运营有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.998
+        },
+        {
+          "gt_no": 4,
+          "gt": "乙方（服务方）：南屿数据科技有限公司",
+          "pred": "乙方(服务方):南屿数据科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9994
+        },
+        {
+          "gt_no": 5,
+          "gt": "服务事项：知识库与 SOP 工作台",
+          "pred": "服务事项:知识库与SOP工作台",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9995
+        },
+        {
+          "gt_no": 6,
+          "gt": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "pred": "第五条 验收标准。甲方应在收到交付物后10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9822
+        },
+        {
+          "gt_no": 7,
+          "gt": "通过。",
+          "pred": "通过。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9996
+        },
+        {
+          "gt_no": 8,
+          "gt": "第六条 知识产权。定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "pred": "第六条知识产权。定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9986
+        },
+        {
+          "gt_no": 9,
+          "gt": "。",
+          "pred": null,
+          "dist": 1,
+          "ok": false,
+          "diff": "[漏『。』]",
+          "stamp_overlap": false,
+          "confidence": null
+        },
+        {
+          "gt_no": 10,
+          "gt": "第七条 保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后 3 ",
+          "pred": "第七条 保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后3",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9915
+        },
+        {
+          "gt_no": 11,
+          "gt": "年。",
+          "pred": "年。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 1.0
+        },
+        {
+          "gt_no": 12,
+          "gt": "第八条 数据合规。乙方处理会员数据应遵循最小必要原则，不得将数据传输至境外，不得用于本合同",
+          "pred": "第八条数据合规。乙方处理会员数据应遵循最小必要原则，不得将数据传输至境外，不得用于本合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9991
+        },
+        {
+          "gt_no": 13,
+          "gt": "以外用途。",
+          "pred": "以外用途。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9998
+        },
+        {
+          "gt_no": 14,
+          "gt": "第九条 违约责任。任何一方违约，应向守约方支付合同总价 5% 的违约金；损失超过违约金的，按实",
+          "pred": "第九条 违约责任。任何一方违约，应向守约方支付合同总价5% 的违约金；损失超过违约金的，按实",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9812
+        },
+        {
+          "gt_no": 15,
+          "gt": "际损失赔偿。",
+          "pred": "际损失赔偿。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9997
+        },
+        {
+          "gt_no": 16,
+          "gt": "第十条 争议解决。因本合同发生的争议，双方应友好协商；协商不成的，提交合同签订地人民法院诉",
+          "pred": "第十条争议解决。因本合同发生的争议，双方应友好协商；协商不成的，提交合同签订地人民法院诉",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9993
+        },
+        {
+          "gt_no": 17,
+          "gt": "讼解决。",
+          "pred": "讼解决。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9997
+        },
+        {
+          "gt_no": 18,
+          "gt": "甲方（盖章）：青禾空间运营有限公司",
+          "pred": "甲方(盖章):青禾空间运营有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9982
+        },
+        {
+          "gt_no": 19,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9715
+        },
+        {
+          "gt_no": 20,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9946
+        },
+        {
+          "gt_no": 21,
+          "gt": "乙方（盖章）：南屿数据科技有限公司",
+          "pred": "乙方(盖章):南屿数据科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9975
+        },
+        {
+          "gt_no": 22,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9738
+        },
+        {
+          "gt_no": 23,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9962
+        },
+        {
+          "gt_no": 24,
+          "gt": "第 2 页 / 共 10 页",
+          "pred": "第2页/共10页",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.995
+        }
+      ]
+    },
+    {
+      "page_no": 12,
+      "file": "scan_12.png",
+      "variant": "scanned",
+      "width": 1654,
+      "height": 2339,
+      "gt_lines": 22,
+      "pred_lines": 22,
+      "gt_chars": 452,
+      "dist": 0,
+      "accuracy_pct": 100.0,
+      "elapsed_ms": 1523.5,
+      "stamp_regions": 0,
+      "rows": [
+        {
+          "gt_no": 1,
+          "gt": "产业资源对接服务合同",
+          "pred": "产业资源对接服务合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9998
+        },
+        {
+          "gt_no": 2,
+          "gt": "合同编号：HT-2026-004",
+          "pred": "合同编号:HT-2026-004",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9991
+        },
+        {
+          "gt_no": 3,
+          "gt": "甲方（委托方）：恒沐商务咨询有限公司",
+          "pred": "甲方(委托方):恒沐商务咨询有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9986
+        },
+        {
+          "gt_no": 4,
+          "gt": "乙方（服务方）：蓝湾智造科技有限公司",
+          "pred": "乙方(服务方):蓝湾智造科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.999
+        },
+        {
+          "gt_no": 5,
+          "gt": "服务事项：小程序会员端开发",
+          "pred": "服务事项:小程序会员端开发",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9997
+        },
+        {
+          "gt_no": 6,
+          "gt": "第九条 违约责任。任何一方违约，应向守约方支付合同总价 5% 的违约金；损失超过违约金的，按实",
+          "pred": "第九条违约责任。任何一方违约，应向守约方支付合同总价5% 的违约金；损失超过违约金的，按实",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9902
+        },
+        {
+          "gt_no": 7,
+          "gt": "际损失赔偿。",
+          "pred": "际损失赔偿。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9994
+        },
+        {
+          "gt_no": 8,
+          "gt": "第十条 争议解决。因本合同发生的争议，双方应友好协商；协商不成的，提交合同签订地人民法院诉",
+          "pred": "第十条争议解决。因本合同发生的争议，双方应友好协商；协商不成的，提交合同签订地人民法院诉",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.999
+        },
+        {
+          "gt_no": 9,
+          "gt": "讼解决。",
+          "pred": "讼解决。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9997
+        },
+        {
+          "gt_no": 10,
+          "gt": "第十一条 其他约定。本合同一式肆份，甲乙双方各执贰份，自双方盖章之日起生效。",
+          "pred": "第十一条其他约定。本合同一式肆份，甲乙双方各执贰份，自双方盖章之日起生效。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9982
+        },
+        {
+          "gt_no": 11,
+          "gt": "第一条 服务内容与交付标准。乙方按附件一《服务清单》向甲方提供服务，交付物应满足附件二的技",
+          "pred": "第一条服务内容与交付标准。乙方按附件一《服务清单》向甲方提供服务，交付物应满足附件二的技",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9972
+        },
+        {
+          "gt_no": 12,
+          "gt": "术与验收要求。",
+          "pred": "术与验收要求。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9998
+        },
+        {
+          "gt_no": 13,
+          "gt": "第二条 合同价款。本合同总价为人民币 １２８，０００.００ 元（含税），价款支付节点见第三条。",
+          "pred": "第二条合同价款。本合同总价为人民币12 8,000.00元(含税)，价款支付节点见第三条。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9513
+        },
+        {
+          "gt_no": 14,
+          "gt": "第三条 付款方式。合同生效后 5 个工作日内甲方支付 30%；阶段验收通过后 10 个工作日内支付 60%",
+          "pred": "第三条付款方式。合同生效后5个工作日内甲方支付 30%；阶段验收通过后10个工作日内支付60%",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9912
+        },
+        {
+          "gt_no": 15,
+          "gt": "；质保期满支付 10%。",
+          "pred": "；质保期满支付10%。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9616
+        },
+        {
+          "gt_no": 16,
+          "gt": "甲方（盖章）：恒沐商务咨询有限公司",
+          "pred": "甲方(盖章):恒沐商务咨询有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.998
+        },
+        {
+          "gt_no": 17,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9874
+        },
+        {
+          "gt_no": 18,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9979
+        },
+        {
+          "gt_no": 19,
+          "gt": "乙方（盖章）：蓝湾智造科技有限公司",
+          "pred": "乙方(盖章):蓝湾智造科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.996
+        },
+        {
+          "gt_no": 20,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9888
+        },
+        {
+          "gt_no": 21,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9978
+        },
+        {
+          "gt_no": 22,
+          "gt": "第 4 页 / 共 10 页",
+          "pred": "第4页/共10页",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.993
+        }
+      ]
+    },
+    {
+      "page_no": 13,
+      "file": "scan_13.png",
+      "variant": "scanned",
+      "width": 1654,
+      "height": 2339,
+      "gt_lines": 22,
+      "pred_lines": 22,
+      "gt_chars": 451,
+      "dist": 4,
+      "accuracy_pct": 99.11,
+      "elapsed_ms": 1882.8,
+      "stamp_regions": 0,
+      "rows": [
+        {
+          "gt_no": 1,
+          "gt": "产业资源对接服务合同",
+          "pred": "产业资源对接服务合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9996
+        },
+        {
+          "gt_no": 2,
+          "gt": "合同编号：HT-2026-005",
+          "pred": "合同编号 : HT-2026-005",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9815
+        },
+        {
+          "gt_no": 3,
+          "gt": "甲方（委托方）：青禾空间运营有限公司",
+          "pred": "甲方 (委托方) :青禾空间运营有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9644
+        },
+        {
+          "gt_no": 4,
+          "gt": "乙方（服务方）：启衡商务服务有限公司",
+          "pred": "乙方 (服务方) :启衡商务服务有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9275
+        },
+        {
+          "gt_no": 5,
+          "gt": "服务事项：产业资源对接服务",
+          "pred": "服务事项:产业资源对接服务",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9995
+        },
+        {
+          "gt_no": 6,
+          "gt": "第十一条 其他约定。本合同一式肆份，甲乙双方各执贰份，自双方盖章之日起生效。",
+          "pred": "第十一条 其他约定。本合同一式肆份，甲乙双方各执贰份，自双方盖章之日起生效。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.985
+        },
+        {
+          "gt_no": 7,
+          "gt": "第一条 服务内容与交付标准。乙方按附件一《服务清单》向甲方提供服务，交付物应满足附件二的技",
+          "pred": "第一条服务内容与交付标准。乙方按附件一《服务清单》 向甲方提供服务，交付物应满足附件二的技",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9898
+        },
+        {
+          "gt_no": 8,
+          "gt": "术与验收要求。",
+          "pred": "术与验收要求。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9998
+        },
+        {
+          "gt_no": 9,
+          "gt": "第二条 合同价款。本合同总价为人民币 １２８，０００.００ 元（含税），价款支付节点见第三条。",
+          "pred": "第二条 合同价款。本合同总价为人民币 1 2 8 ， 0 0 0.0 0 元 (含税) ，价款支付节点见第三条。",
+          "dist": 1,
+          "ok": false,
+          "diff": "第二条合同价…人民币128[错『,』→『，』]000.00…点见第三条。",
+          "stamp_overlap": false,
+          "confidence": 0.9441
+        },
+        {
+          "gt_no": 10,
+          "gt": "第三条 付款方式。合同生效后 5 个工作日内甲方支付 30%；阶段验收通过后 10 个工作日内支付 60%",
+          "pred": "第三条 付款方式。 合同生效后 5 个工作日内甲方支付 30% ;阶段验收通过后 10 个工作日内支付 60%",
+          "dist": 1,
+          "ok": false,
+          "diff": "第三条付款方…方支付30%[错『；』→『;』]阶段验收通过…内支付60%",
+          "stamp_overlap": false,
+          "confidence": 0.9815
+        },
+        {
+          "gt_no": 11,
+          "gt": "；质保期满支付 10%。",
+          "pred": "; 质保期满支付 10%。",
+          "dist": 1,
+          "ok": false,
+          "diff": "[错『；』→『;』]质保期满支付10%。",
+          "stamp_overlap": false,
+          "confidence": 0.9641
+        },
+        {
+          "gt_no": 12,
+          "gt": "第四条 交付周期。乙方应于 2026 年 3 月 31 日前完成全部交付；因甲方原因导致的延误，交付期相应",
+          "pred": "第四条 交付周期。 乙方应于 2026 年 3 月 31 日前完成全部交付 ；因甲方原因导致的延误， 交付期相应",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.964
+        },
+        {
+          "gt_no": 13,
+          "gt": "顺延。",
+          "pred": "顺延。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 14,
+          "gt": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "pred": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9861
+        },
+        {
+          "gt_no": 15,
+          "gt": "通过。",
+          "pred": "通过。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 16,
+          "gt": "甲方（盖章）：青禾空间运营有限公司",
+          "pred": "甲方 (盖章) :青禾空间运营有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9759
+        },
+        {
+          "gt_no": 17,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9482
+        },
+        {
+          "gt_no": 18,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期 : 2026 年1 月 12 日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.8999
+        },
+        {
+          "gt_no": 19,
+          "gt": "乙方（盖章）：启衡商务服务有限公司",
+          "pred": "乙方 (盖章) :后衡商务服务有限公司",
+          "dist": 1,
+          "ok": false,
+          "diff": "乙方(盖章):[错『启』→『后』]衡商务服务有限公司",
+          "stamp_overlap": false,
+          "confidence": 0.922
+        },
+        {
+          "gt_no": 20,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.947
+        },
+        {
+          "gt_no": 21,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期 : 2026 年1 月 12 日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9116
+        },
+        {
+          "gt_no": 22,
+          "gt": "第 5 页 / 共 10 页",
+          "pred": "第 5 页 /共10页",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9694
+        }
+      ]
+    },
+    {
+      "page_no": 14,
+      "file": "scan_14.png",
+      "variant": "scanned",
+      "width": 1654,
+      "height": 2339,
+      "gt_lines": 24,
+      "pred_lines": 23,
+      "gt_chars": 452,
+      "dist": 1,
+      "accuracy_pct": 99.78,
+      "elapsed_ms": 1913.2,
+      "stamp_regions": 0,
+      "rows": [
+        {
+          "gt_no": 1,
+          "gt": "产业资源对接服务合同",
+          "pred": "产业资源对接服务合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 2,
+          "gt": "合同编号：HT-2026-007",
+          "pred": "合同编号:HT-2026-007",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9996
+        },
+        {
+          "gt_no": 3,
+          "gt": "甲方（委托方）：恒沐商务咨询有限公司",
+          "pred": "甲方(委托方):恒沐商务咨询有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9928
+        },
+        {
+          "gt_no": 4,
+          "gt": "乙方（服务方）：沐石供应链有限公司",
+          "pred": "乙方(服务方):沐石供应链有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9993
+        },
+        {
+          "gt_no": 5,
+          "gt": "服务事项：知识库与 SOP 工作台",
+          "pred": "服务事项:知识库与SOP工作台",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9985
+        },
+        {
+          "gt_no": 6,
+          "gt": "第四条 交付周期。乙方应于 2026 年 3 月 31 日前完成全部交付；因甲方原因导致的延误，交付期相应",
+          "pred": "第四条交付周期。乙方应于2026年3月31日前完成全部交付；因甲方原因导致的延误，交付期相应",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9995
+        },
+        {
+          "gt_no": 7,
+          "gt": "顺延。",
+          "pred": "顺延。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 8,
+          "gt": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "pred": "第五条验收标准。甲方应在收到交付物后10个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9957
+        },
+        {
+          "gt_no": 9,
+          "gt": "通过。",
+          "pred": "通过。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 10,
+          "gt": "第六条 知识产权。定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "pred": "第六条知识产权。定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9964
+        },
+        {
+          "gt_no": 11,
+          "gt": "。",
+          "pred": null,
+          "dist": 1,
+          "ok": false,
+          "diff": "[漏『。』]",
+          "stamp_overlap": false,
+          "confidence": null
+        },
+        {
+          "gt_no": 12,
+          "gt": "第七条 保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后 3 ",
+          "pred": "第七条保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后3",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9995
+        },
+        {
+          "gt_no": 13,
+          "gt": "年。",
+          "pred": "年。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9997
+        },
+        {
+          "gt_no": 14,
+          "gt": "第八条 数据合规。乙方处理会员数据应遵循最小必要原则，不得将数据传输至境外，不得用于本合同",
+          "pred": "第八条数据合规。乙方处理会员数据应遵循最小必要原则，不得将数据传输至境外，不得用于本合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9985
+        },
+        {
+          "gt_no": 15,
+          "gt": "以外用途。",
+          "pred": "以外用途。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 16,
+          "gt": "第九条 违约责任。任何一方违约，应向守约方支付合同总价 5% 的违约金；损失超过违约金的，按实",
+          "pred": "第九条违约责任。任何一方违约，应向守约方支付合同总价5%的违约金；损失超过违约金的，按实",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9996
+        },
+        {
+          "gt_no": 17,
+          "gt": "际损失赔偿。",
+          "pred": "际损失赔偿。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9996
+        },
+        {
+          "gt_no": 18,
+          "gt": "甲方（盖章）：恒沐商务咨询有限公司",
+          "pred": "甲方(盖章):恒沐商务咨询有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9983
+        },
+        {
+          "gt_no": 19,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9876
+        },
+        {
+          "gt_no": 20,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9989
+        },
+        {
+          "gt_no": 21,
+          "gt": "乙方（盖章）：沐石供应链有限公司",
+          "pred": "乙方(盖章):沐石供应链有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9977
+        },
+        {
+          "gt_no": 22,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.989
+        },
+        {
+          "gt_no": 23,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026年1月12日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.999
+        },
+        {
+          "gt_no": 24,
+          "gt": "第 7 页 / 共 10 页",
+          "pred": "第7页/共10页",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9824
+        }
+      ]
+    },
+    {
+      "page_no": 15,
+      "file": "scan_15.png",
+      "variant": "scanned",
+      "width": 1654,
+      "height": 2339,
+      "gt_lines": 24,
+      "pred_lines": 23,
+      "gt_chars": 491,
+      "dist": 5,
+      "accuracy_pct": 98.98,
+      "elapsed_ms": 3478.0,
+      "stamp_regions": 1,
+      "rows": [
+        {
+          "gt_no": 1,
+          "gt": "产业资源对接服务合同",
+          "pred": "产业资源对接服务合同",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9998
+        },
+        {
+          "gt_no": 2,
+          "gt": "合同编号：HT-2026-006",
+          "pred": "合同编号 : HT-2026-006",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9712
+        },
+        {
+          "gt_no": 3,
+          "gt": "甲方（委托方）：星澜产业园管理有限公司",
+          "pred": "甲方(委托方):星澜产业园管理有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9614
+        },
+        {
+          "gt_no": 4,
+          "gt": "乙方（服务方）：南屿数据科技有限公司",
+          "pred": "乙方(服务方):南屿数据科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9689
+        },
+        {
+          "gt_no": 5,
+          "gt": "服务事项：会员数据中台实施",
+          "pred": "服务事项:会员数据中台实施",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9994
+        },
+        {
+          "gt_no": 6,
+          "gt": "第二条 合同价款。本合同总价为人民币 １２８，０００.００ 元（含税），价款支付节点见第三条。",
+          "pred": "第二条合同价款。本合同总价为人民币 1 2 8 ，0 0 0 .0 0 元(含税)，价款支付节点见第三条。",
+          "dist": 1,
+          "ok": false,
+          "diff": "第二条合同价…人民币128[错『,』→『，』]000.00…点见第三条。",
+          "stamp_overlap": false,
+          "confidence": 0.9571
+        },
+        {
+          "gt_no": 7,
+          "gt": "第三条 付款方式。合同生效后 5 个工作日内甲方支付 30%；阶段验收通过后 10 个工作日内支付 60%",
+          "pred": "第三条 付款方式。 合同生效后 5 个工作日内甲方支付 30% ;阶段验收通过后 10 个工作日内支付 60%",
+          "dist": 1,
+          "ok": false,
+          "diff": "第三条付款方…方支付30%[错『；』→『;』]阶段验收通过…内支付60%",
+          "stamp_overlap": false,
+          "confidence": 0.9809
+        },
+        {
+          "gt_no": 8,
+          "gt": "；质保期满支付 10%。",
+          "pred": "; 质保期满支付 10%。",
+          "dist": 1,
+          "ok": false,
+          "diff": "[错『；』→『;』]质保期满支付10%。",
+          "stamp_overlap": false,
+          "confidence": 0.9832
+        },
+        {
+          "gt_no": 9,
+          "gt": "补充约定：合同总价按人民币 356,000.00 元执行，分（３）期支付。",
+          "pred": "补充约定:合同总价按人民币 356,000.00 元执行，分(3) 期支付。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9685
+        },
+        {
+          "gt_no": 10,
+          "gt": "第四条 交付周期。乙方应于 2026 年 3 月 31 日前完成全部交付；因甲方原因导致的延误，交付期相应",
+          "pred": "第四条 交付周期。 乙方应于 2026 年 3 月 31 日前完成全部交付;因甲方原因导致的延误，交付期相应",
+          "dist": 1,
+          "ok": false,
+          "diff": "第四条交付周…完成全部交付[错『；』→『;』]因甲方原因导…，交付期相应",
+          "stamp_overlap": false,
+          "confidence": 0.983
+        },
+        {
+          "gt_no": 11,
+          "gt": "顺延。",
+          "pred": "顺延。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 12,
+          "gt": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "pred": "第五条 验收标准。甲方应在收到交付物后 10 个工作日内完成验收；逾期未提出书面异议的，视为验收",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9854
+        },
+        {
+          "gt_no": 13,
+          "gt": "通过。",
+          "pred": "通过。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 14,
+          "gt": "第六条 知识产权。定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "pred": "第六条 知识产权。 定制开发成果的著作权归甲方所有；乙方保留其通用组件、工具与既有技术的权利",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9811
+        },
+        {
+          "gt_no": 15,
+          "gt": "。",
+          "pred": null,
+          "dist": 1,
+          "ok": false,
+          "diff": "[漏『。』]",
+          "stamp_overlap": false,
+          "confidence": null
+        },
+        {
+          "gt_no": 16,
+          "gt": "第七条 保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后 3 ",
+          "pred": "第七条 保密义务。双方对合作中知悉的商业秘密、会员数据承担保密义务，保密期限为合同终止后 3",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9891
+        },
+        {
+          "gt_no": 17,
+          "gt": "年。",
+          "pred": "年。",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9999
+        },
+        {
+          "gt_no": 18,
+          "gt": "甲方（盖章）：星澜产业园管理有限公司",
+          "pred": "甲方 (盖章) :星澜产业园管理有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9575
+        },
+        {
+          "gt_no": 19,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.8923
+        },
+        {
+          "gt_no": 20,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026 年1月12 日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.936
+        },
+        {
+          "gt_no": 21,
+          "gt": "乙方（盖章）：南屿数据科技有限公司",
+          "pred": "乙方(盖章):南屿数据科技有限公司",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": true,
+          "confidence": 0.7885
+        },
+        {
+          "gt_no": 22,
+          "gt": "授权代表（签字）：",
+          "pred": "授权代表(签字):",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9411
+        },
+        {
+          "gt_no": 23,
+          "gt": "签署日期：2026 年 1 月 12 日",
+          "pred": "签署日期:2026 年1月12 日",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.9469
+        },
+        {
+          "gt_no": 24,
+          "gt": "第 6 页 / 共 10 页",
+          "pred": "第6页 /共10页",
+          "dist": 0,
+          "ok": true,
+          "diff": "",
+          "stamp_overlap": false,
+          "confidence": 0.991
         }
       ]
     }

@@ -4,9 +4,11 @@
   * 3.x: PaddleOCR(...).predict(input=path) -> [ {rec_texts, rec_scores, rec_polys} ]
   * 2.x: PaddleOCR(...).ocr(path, cls=True) -> [[ [box, (text, score)], ... ]]
 
-模型来源可用环境变量固定为镜像内目录：
+模型来源由环境变量固定为镜像内目录：
   PADDLE_OCR_DET_MODEL_DIR / PADDLE_OCR_REC_MODEL_DIR / PADDLE_OCR_CLS_MODEL_DIR
-未设置时读 PaddleOCR 默认缓存（首次运行需联网下载，打包脚本会把它固化进镜像）。
+未设置时只回落 `models/official_models/<模型名>`（仓库/镜像内的离线目录），
+两者都不存在则 **fail-closed 抛 ModelWeightsMissing**，绝不交给 PaddleOCR 的默认
+缓存去联网下载（HF_HUB_OFFLINE 只挡 HuggingFace，挡不住 ModelScope / BOS 下载）。
 """
 from __future__ import annotations
 
@@ -35,6 +37,58 @@ _DISABLE_FLAGS = (
     "use_textline_orientation",
 )
 
+# 权重文件特征：3.x 用 inference.json / inference.yml，2.x 用 inference.pdmodel；
+# 两者都必须带 inference.pdiparams。缺任一 → 判为权重不完整，直接失败。
+_WEIGHT_PARAMS = "inference.pdiparams"
+_WEIGHT_GRAPHS = ("inference.json", "inference.pdmodel")
+
+# 仓库 / 镜像内的离线权重根目录（app/ocr/paddle_engine.py → 上两级）
+DEFAULT_MODELS_ROOT = Path(__file__).resolve().parents[2] / "models" / "official_models"
+
+
+class ModelWeightsMissing(RuntimeError):
+    """离线权重缺失/不完整。fail-closed：绝不允许回落到联网下载。"""
+
+
+def _validate_model_dir(path: Path, env_key: str, model_name: str) -> Path:
+    """校验目录里确实有可推理的权重；不完整就抛错，不把决定权交回 PaddleOCR。"""
+    if not path.is_dir():
+        raise ModelWeightsMissing(
+            f"离线权重目录不存在：{path}（{env_key} / 模型 {model_name}）。"
+            f"请设置 {env_key} 指向镜像内的 official_models/{model_name}，"
+            f"或先执行 bash tools/package_models.sh 解包权重。已拒绝回落到在线下载。"
+        )
+    missing = []
+    if not (path / _WEIGHT_PARAMS).is_file():
+        missing.append(_WEIGHT_PARAMS)
+    if not any((path / g).is_file() for g in _WEIGHT_GRAPHS):
+        missing.append(" 或 ".join(_WEIGHT_GRAPHS))
+    if missing:
+        raise ModelWeightsMissing(
+            f"离线权重不完整：{path} 缺少 {' / '.join(missing)}（{env_key}）。"
+            f"该目录可能是被 .gitignore 忽略后残留的空壳（只剩 .lock 文件）。"
+            f"请从 dist/paddleocr_offline_models.tar.gz 解包后重试；已拒绝联网下载。"
+        )
+    return path
+
+
+def resolve_model_dir(env_key: str, model_name: str, explicit: str | Path | None = None) -> Path:
+    """按 显式参数 → 环境变量 → 仓库内离线目录 的顺序解析权重目录。
+
+    三条路径都会做完整性校验；全部落空即抛 ModelWeightsMissing。
+    """
+    candidate = explicit or os.getenv(env_key)
+    if candidate:
+        return _validate_model_dir(Path(candidate).expanduser(), env_key, model_name)
+    local = DEFAULT_MODELS_ROOT / model_name
+    if local.is_dir():
+        return _validate_model_dir(local, env_key, model_name)
+    raise ModelWeightsMissing(
+        f"{env_key} 未设置，且默认离线目录 {local} 不存在。"
+        f"拒绝使用 PaddleOCR 默认缓存（首次运行会联网下载，断网容器内必然失败）。"
+        f"离线部署请设置 {env_key} 指向镜像内权重目录。"
+    )
+
 
 class PaddleOcrEngine:
     """本地 PaddleOCR 引擎。线程不安全，多进程部署时每进程一个实例。
@@ -57,6 +111,22 @@ class PaddleOcrEngine:
         rec_model_dir: str | None = None,
         cls_model_dir: str | None = None,
     ) -> None:
+        # ---- 先解析权重目录：缺失即 fail-closed，早于任何 PaddleOCR 初始化 ----
+        det_name = os.getenv("PADDLE_OCR_DET_MODEL_NAME", "PP-OCRv4_mobile_det")
+        rec_name = os.getenv("PADDLE_OCR_REC_MODEL_NAME", "PP-OCRv4_mobile_rec")
+        det_path = resolve_model_dir("PADDLE_OCR_DET_MODEL_DIR", det_name, det_model_dir)
+        rec_path = resolve_model_dir("PADDLE_OCR_REC_MODEL_DIR", rec_name, rec_model_dir)
+        cls_path = None
+        cls_raw = cls_model_dir or os.getenv("PADDLE_OCR_CLS_MODEL_DIR")
+        if cls_raw:
+            cls_path = resolve_model_dir(
+                "PADDLE_OCR_CLS_MODEL_DIR", os.getenv("PADDLE_OCR_CLS_MODEL_NAME", "ch_ppocr_mobile_v2.0_cls"), cls_raw
+            )
+
+        # 兜底关掉任何缓存型下载入口（只作为第二道闸，第一道是上面的目录校验）
+        os.environ.setdefault("HF_HUB_OFFLINE", "1")
+        os.environ.setdefault("PADDLE_PDX_CACHE_HOME", str(det_path.parent.parent))
+
         from paddleocr import PaddleOCR  # 延迟导入：无模型环境也能跑单测
 
         import inspect
@@ -74,8 +144,6 @@ class PaddleOcrEngine:
             kwargs[flag] = False
 
         if "text_detection_model_name" in params:
-            det_name = os.getenv("PADDLE_OCR_DET_MODEL_NAME", "PP-OCRv4_mobile_det")
-            rec_name = os.getenv("PADDLE_OCR_REC_MODEL_NAME", "PP-OCRv4_mobile_rec")
             kwargs["text_detection_model_name"] = det_name
             kwargs["text_recognition_model_name"] = rec_name
             kwargs["text_det_limit_side_len"] = det_limit_side_len
@@ -92,24 +160,32 @@ class PaddleOcrEngine:
             kwargs["cpu_threads"] = cpu_threads
             kwargs["enable_mkldnn"] = True
 
-        # 目录覆盖（离线打包/自定义模型）
-        det = det_model_dir or os.getenv("PADDLE_OCR_DET_MODEL_DIR")
-        rec = rec_model_dir or os.getenv("PADDLE_OCR_REC_MODEL_DIR")
-        cls = cls_model_dir or os.getenv("PADDLE_OCR_CLS_MODEL_DIR")
-        for key, val in (
-            ("text_detection_model_dir", det),
-            ("text_recognition_model_dir", rec),
-        ):
-            if val and key in params:
-                kwargs[key] = val
-        if cls and "cls_model_dir" in params:
-            kwargs["cls_model_dir"] = cls
+        # 权重目录覆盖（3.x 命名 text_detection_model_dir / 2.x 命名 det_model_dir）
+        if "text_detection_model_dir" in params:
+            kwargs["text_detection_model_dir"] = str(det_path)
+            kwargs["text_recognition_model_dir"] = str(rec_path)
+            if cls_path is not None:
+                kwargs["textline_orientation_model_dir"] = str(cls_path)
+        elif "det_model_dir" in params:
+            kwargs["det_model_dir"] = str(det_path)
+            kwargs["rec_model_dir"] = str(rec_path)
+            if cls_path is not None:
+                kwargs["cls_model_dir"] = str(cls_path)
+            if "use_angle_cls" in params:
+                kwargs["use_angle_cls"] = cls_path is not None
+        else:
+            raise ModelWeightsMissing(
+                "当前 PaddleOCR 版本的构造函数不接受本地模型目录参数，"
+                "无法保证离线；请使用 requirements-ocr.txt 锁定的版本。"
+            )
 
         # 2.x 专属参数：只在签名里存在时传
         for key in list(kwargs):
             if not has_varkw and key not in params:
                 kwargs.pop(key)
 
+        self.det_model_dir = det_path
+        self.rec_model_dir = rec_path
         self._legacy = not hasattr(PaddleOCR, "predict")
         self._is_v3 = not self._legacy
         self._ocr = PaddleOCR(**kwargs)
