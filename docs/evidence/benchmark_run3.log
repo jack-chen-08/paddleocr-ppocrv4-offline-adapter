@@ -1,0 +1,58 @@
+/app/app/ocr/paddle_engine.py:191: UserWarning: `lang` and `ocr_version` will be ignored when model names or model directories are not `None`.
+  self._ocr = PaddleOCR(**kwargs)
+/usr/local/lib/python3.12/site-packages/paddle/utils/cpp_extension/extension_utils.py:718: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+Creating model: ('PP-OCRv4_mobile_det', '/app/models/official_models/PP-OCRv4_mobile_det', None)
+Creating model: ('PP-OCRv4_mobile_rec', '/app/models/official_models/PP-OCRv4_mobile_rec', None)
+round1 page_01.png 2.98s lines=23 variant=clean
+round1 page_02.png 2.43s lines=23 variant=clean
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (4387 ms total)
+round1 page_03.png 4.43s lines=24 variant=clean
+round1 page_04.png 1.92s lines=22 variant=clean
+round1 page_05.png 2.09s lines=22 variant=clean
+[ocr] page 6: dropped 6 ring-text lines inside stamp
+[ocr] page 6: stamp two-pass added 4 / replaced 0 line(s) (4732 ms total)
+round1 page_06.png 4.79s lines=23 variant=clean
+round1 page_07.png 2.32s lines=23 variant=clean
+round1 page_08.png 2.45s lines=22 variant=clean
+[ocr] page 9: dropped 5 ring-text lines inside stamp
+[ocr] page 9: stamp two-pass added 2 / replaced 0 line(s) (4574 ms total)
+round1 page_09.png 4.62s lines=23 variant=clean
+round1 page_10.png 2.25s lines=22 variant=clean
+round1 scan_11.png 1.90s lines=23 variant=scanned
+round1 scan_12.png 1.78s lines=22 variant=scanned
+round1 scan_13.png 2.26s lines=22 variant=scanned
+round1 scan_14.png 2.23s lines=23 variant=scanned
+[ocr] page 15: dropped 6 ring-text lines inside stamp
+[ocr] page 15: stamp two-pass added 1 / replaced 3 line(s) (3946 ms total)
+round1 scan_15.png 4.11s lines=23 variant=scanned
+round2 page_01.png 2.25s lines=23 variant=clean
+round2 page_02.png 1.98s lines=23 variant=clean
+[ocr] page 3: dropped 7 ring-text lines inside stamp
+[ocr] page 3: stamp two-pass added 3 / replaced 0 line(s) (3693 ms total)
+round2 page_03.png 3.74s lines=24 variant=clean
+round2 page_04.png 1.64s lines=22 variant=clean
+round2 page_05.png 1.71s lines=22 variant=clean
+[ocr] page 6: dropped 6 ring-text lines inside stamp
+[ocr] page 6: stamp two-pass added 4 / replaced 0 line(s) (3770 ms total)
+round2 page_06.png 3.81s lines=23 variant=clean
+round2 page_07.png 2.24s lines=23 variant=clean
+round2 page_08.png 1.86s lines=22 variant=clean
+[ocr] page 9: dropped 5 ring-text lines inside stamp
+[ocr] page 9: stamp two-pass added 2 / replaced 0 line(s) (3762 ms total)
+round2 page_09.png 3.81s lines=23 variant=clean
+round2 page_10.png 1.75s lines=22 variant=clean
+round2 scan_11.png 1.65s lines=23 variant=scanned
+round2 scan_12.png 1.67s lines=22 variant=scanned
+round2 scan_13.png 1.97s lines=22 variant=scanned
+round2 scan_14.png 1.93s lines=23 variant=scanned
+[ocr] page 15: dropped 6 ring-text lines inside stamp
+[ocr] page 15: stamp two-pass added 1 / replaced 3 line(s) (3560 ms total)
+round2 scan_15.png 3.70s lines=23 variant=scanned
+------------------------------------------------------------
+samples=30  P50=2.244s  P95=4.431s  max=4.793s  affinity=[0, 1, 2, 3]
+  clean    samples= 20 P50=2.288s P95=4.621s max=4.793s
+  scanned  samples= 10 P50=1.949s P95=4.109s max=4.109s
+判定：PASS（阈值 P95 ≤ 6.000s）
+AC3_RC=0

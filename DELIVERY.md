@@ -13,7 +13,7 @@
 > 本轮相对上一版的改动（均为评审意见直接对应项）：
 > ① 离线证据从宿主机 `unshare -rn` 换成**真容器** `docker run --network none`，日志 `docs/evidence/docker_offline_proof.log`；
 > ② 评估集从 10 页扩到 **15 页（10 原件 + 5 扫描件）**，补上扫描件这个真实场景；
-> ③ 延迟用**容器内 30 样本单轮**（P95 3.987 s）+ 一次独立复跑（3.537 s）说明，不再是三次不同时刻拼数；
+> ③ 延迟用**三次同镜像、同命令、同绑核的容器内 30 样本运行**（P95 3.987 / 3.537 / 4.431 s）说明，取最差一次报余量，不是三次不同时刻拼数；
 > ④ README 的镜像体积（原写 1.0 GB → 实测 **2.6 GB**）、测试数（原写 30 → **35**）、权重来源（原写「随仓库分发」→ `official_models/` 已 gitignore，唯一来源是 `dist/*.tar.gz`）三处错误已改；
 > ⑤ 全部报告与日志由同一提交、同一次运行生成。
 
@@ -50,7 +50,7 @@ Expected: line-level JSON, each line carrying `text`, `bbox` (4 corner points), 
 |:-:|:--|:--|:-:|
 | 1 | 10 张虚构测试页的字符级准确率 ≥ 97%（附计算脚本与输出） | **15 页整体 99.64%**（编辑距离 25 / 6,910 标注字符）；其中 10 页原件 **99.70%**（14 / 4,611）、5 页扫描件 **99.52%**（11 / 2,299）；**单页最低 98.98%**，无单页 < 97% | **PASS** |
 | 2 | 断网环境下容器内识别可正常完成（离线运行日志） | **真容器** `docker run --network none`：容器内 `socket.create_connection("pypi.org",443)` → **BLOCKED (gaierror)**，同进程完成 page_03 识别：24 行、均置信度 0.9882、7,223 ms（含引擎初始化）。日志 `docs/evidence/docker_offline_proof.log` | **PASS** |
-| 3 | 单页 P95 耗时 ≤ 6 秒（4 核 CPU 压测输出） | 容器内 30 样本（15 页 × 2 轮）、affinity `[0,1,2,3]`：**P50 1.828 s / P95 3.987 s / max 4.179 s**；独立复跑 P95 3.537 s / max 3.933 s（`reports/benchmark_run2.json`） | **PASS**（余量 1.50 倍，见 note ③） |
+| 3 | 单页 P95 耗时 ≤ 6 秒（4 核 CPU 压测输出） | 容器内 30 样本（15 页 × 2 轮）、affinity `[0,1,2,3]`：**P50 1.828 s / P95 3.987 s / max 4.179 s**；独立复跑 P95 3.537 s / max 3.933 s（`reports/benchmark_run2.json`）、第三轮 P95 4.431 s / max 4.793 s（`docs/evidence/benchmark_run3.log`） | **PASS**（三轮最差余量 1.35 倍，见 note ③） |
 | 4 | 被印章遮挡的行带 stamp_overlap 标记且置信度已降权（单元测试通过） | `tests/test_stamp.py` 6/6 + `tests/test_stamp_second_pass.py` 8/8 passed（全套 35 passed）；penalty `0.8` 每行只施加一次，环形字整行剔除不进正文 | **PASS** |
 
 Reproduce all four — 四条全部可复现（干净 clone 内，逐条对应）:
@@ -102,7 +102,7 @@ Page 3 carries a red stamp sitting directly over a body line. The failure was **
 （p03 原 96.67% 的成因是红章压盖导致**整行在检测阶段丢失**，不是错识字。加 R 通道二次识别后该页 100.00%；二次识别仅在含印章页触发，只接收印章区附近的新增行，合并后按阅读顺序重排。）
 
 **③ 延迟余量不是舒适区，明写**
-P95 3.987 s 对 6 s 阈值余量 **1.50 倍**，两次独立容器运行落在 3.54–3.99 s。瓶颈页是含红章的页（二次识别多一遍），实测 max 4.179 s。若 4 核被其它进程抢占，单页 max 会涨到 6 s 以上（README「九、已知边界」已列），生产部署须为 OCR 预留 4 核。不把这条写成「余量充足」。
+三次独立容器运行整体 P95 分别为 3.987 s / 3.537 s / 4.431 s，按**最差**的 4.431 s 对 6 s 阈值余量 **1.35 倍**，波动区间 3.54–4.43 s，最差单页 4.793 s。瓶颈页是含红章的页（二次识别多一遍）。若 4 核被其它进程抢占，单页 max 会涨到 6 s 以上（README「九、已知边界」已列），生产部署须为 OCR 预留 4 核。不把这条写成「余量充足」。
 
 **④ 模型版本**
 The scaffold shipped with PP-OCRv5; per the task's explicit requirement this delivery is on **PP-OCRv4 mobile** and all four criteria were re-measured on it. v4 vs v5 精度基本持平（99.64% vs 99.72%），两者均过 97% 阈值。Switching is a single environment variable:

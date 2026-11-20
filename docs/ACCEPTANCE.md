@@ -11,7 +11,7 @@
 |:-:|:--|:--|:-:|:--|
 | 1 | 10 张虚构测试页的字符级准确率 ≥ 97%（附计算脚本与输出） | **主指标严格按工单约定的标准测试集统计**：10 页原件 **99.70%**（编辑距离 14 / 标注 4,611 字符）；另加 5 页扫描畸变样本作鲁棒性补充，两组单列——扫描组 99.52%（11 / 2,299）、15 页整体 99.64%（25 / 6,910），**两组均高于 97% 门槛**，无择优挑样本；**单页最低 98.98%（scan_15），无单页 < 97%** | **PASS** | `tools/eval_accuracy.py` → `reports/accuracy.json`；日志 `docs/evidence/accuracy_run.log` |
 | 2 | 断网环境下容器内识别可正常完成（离线运行日志） | **真容器** `docker run --network none`（镜像由本仓库 Dockerfile 构建，权重在构建期从 `dist/*.tar.gz` 校验解包）：容器内 `socket.create_connection("pypi.org",443)` → **BLOCKED (gaierror)**；同进程完成 page_03 识别：24 行、avg_conf 0.9882、7,223 ms（含引擎初始化） | **PASS** | `tools/ci_offline_proof.sh --docker` → `docs/evidence/docker_offline_proof.log` |
-| 3 | 单页 P95 耗时 ≤ 6 秒（4 核 CPU 压测输出） | 容器内 30 样本（15 页 × 2 轮）、`sched_setaffinity` 绑核 [0,1,2,3]：**P50 1.828 s / P95 3.987 s / max 4.179 s**；独立复跑（同一镜像、`reports/benchmark_run2.json`）P95 **3.537 s** / max 3.933 s。**对 6 s 余量 1.50 倍**（按两轮里较差的一次算，见 §四-③） | **PASS** | `tools/benchmark_p95.py --rounds 2 --cores 4` → `reports/benchmark.json`、`reports/benchmark_run2.json` |
+| 3 | 单页 P95 耗时 ≤ 6 秒（4 核 CPU 压测输出） | 容器内 30 样本（15 页 × 2 轮）、`sched_setaffinity` 绑核 [0,1,2,3]：**P50 1.828 s / P95 3.987 s / max 4.179 s**；独立复跑（同一镜像、`reports/benchmark_run2.json`）P95 **3.537 s** / max 3.933 s、第三轮 P95 **4.431 s** / max 4.793 s（`docs/evidence/benchmark_run3.log`）。**对 6 s 余量 1.35 倍**（按三轮里最差的一次算，见 §四-③） | **PASS** | `tools/benchmark_p95.py --rounds 2 --cores 4` → `reports/benchmark.json`、`reports/benchmark_run2.json` |
 | 4 | 被印章遮挡的行带 stamp_overlap 标记且置信度已降权（单元测试通过） | `tests/test_stamp.py` 6 + `tests/test_stamp_second_pass.py` 8 全通过（全套 **35 passed**）；降权系数 0.8（`CONFIDENCE_PENALTY`），每行只施加一次；章内环形字整行剔除不进正文 | **PASS** | `docs/evidence/pytest.txt` |
 
 **复现（干净 clone 内，全部只读本地，不需要任何外部下载）**
@@ -68,7 +68,7 @@ PYTHONPATH=. python -m pytest tests/ -q                                      # A
 | 8 | 全角半角统一（数字、括号、冒号、小数点） | `app/ocr/normalize.py::normalize_text`；`tests/test_normalize.py` 5 用例（含幂等性、中文句读保留） | ✅ |
 | 9 | 结果写入 `ocr/{contract_id}/{page_no}.json` | `app/ocr/storage.py::ocr_object_key`；`tests/test_ocr_service.py::test_object_key_layout` | ✅ |
 | 10 | 回写 `doc_contract_page.ocr_avg_confidence` | `app/ocr/service.py` 写 `row.ocr_avg_confidence = round(page.avg_confidence, 4)`；`test_db_row_written_when_session_given` | ✅ |
-| 11 | P95 ≤ 6 s @ 4 核 | 容器内实测 P95 3.987 s（复跑 3.537 s）；仅含印章页跑二次识别 | ✅ |
+| 11 | P95 ≤ 6 s @ 4 核 | 容器内三轮实测 P95 3.987 / 3.537 / 4.431 s，按最差 4.431 s 报；仅含印章页跑二次识别 | ✅ |
 | 12 | OCR 字段一律进人工核对队列，确认前不写业务数据、不对外发送 | 识别后写 `review_item`（pending），不写任何业务表、不发任何外呼 | ✅ |
 | 13 | OCR 与 AI 都不计算金额 | 结果体不含金额字段；`amount_computed` 恒为 false | ✅ |
 | 14 | 测试页全部虚构 | `tools/gen_test_pages.py` + `tools/gen_scan_pages.py` 程序化生成，公司名/证件号/账号全部合成 | ✅ |
@@ -93,10 +93,10 @@ PYTHONPATH=. python -m pytest tests/ -q                                      # A
 
 ② **page_03 已从 96.67% 加固到 100.00%**：原失分不是错识字，而是红章压盖导致整行 `乙方（盖章）：沐石供应链有限公司` 在**检测阶段整行丢失**（16 字符）。
 加固方式：对含印章页追加一次 **R 通道识别**（红墨在 R 通道接近纸白、黑字仍暗，故章下正文显现），只接收与印章区相交的新增行，与原结果同行去重后按阅读顺序重排，最后统一做一次降权与环形文字剔除。
-代价：仅印章页耗时增加（实测该页 2.9–4.2 s），整体 P95 3.987 s，仍 < 6 s。
+代价：仅印章页耗时增加（实测该页 2.9–4.4 s），三轮整体 P95 3.54–4.43 s，最差仍 < 6 s。
 
 ③ **延迟余量与镜像体积，都明写**：
-- P95 3.987 s 对 6 s 的余量 **1.50 倍**（两轮容器运行 3.537–3.987 s，按较差的一轮算）。若 4 核被其它进程抢占，单页 max 会冲破 6 s，生产部署须为 OCR 预留独占 4 核。
+- 三轮容器运行整体 P95 3.537–4.431 s，按**最差**一轮算对 6 s 的余量 **1.35 倍**（最差单页 4.793 s）。若 4 核被其它进程抢占，单页 max 会冲破 6 s，生产部署须为 OCR 预留独占 4 核。
 - 镜像实测 **2.6 GB**（paddlepaddle CPU 轮子解包 ~1.1 GB + 依赖 ~1.4 GB + 权重 16 MB）。上一版 README 写「约 1.0 GB」是错的，已改。若需瘦身可换精简轮子或改 ONNX Runtime 推理，属后续优化项，不影响本轮验收。
 
 ④ **模型版本**：脚手架原为 PP-OCRv5，按任务要求切到 **PP-OCRv4 mobile** 并重跑全部四项。v4 精度 99.64% vs v5 99.72%，均过阈值；可用环境变量切回：
@@ -110,7 +110,7 @@ PYTHONPATH=. python -m pytest tests/ -q                                      # A
 |:-:|:--|:--|:-:|
 | 1 | ≥ 97% | 99.64%（15 页；单页最低 98.98%） | PASS |
 | 2 | 断网容器内可完成 | `--network none` 容器内 BLOCKED + 识别成功（24 行 / 0.9882） | PASS |
-| 3 | P95 ≤ 6 s | 3.987 s（max 4.179 s；复跑 3.537 s） | PASS |
+| 3 | P95 ≤ 6 s | 4.431 s（max 4.793 s；三轮 3.537–4.431 s） | PASS |
 | 4 | 标记 + 降权 + 单测 | 14/14（全套 35 passed） | PASS |
 
 **4/4 通过**，无遗留待确认项。

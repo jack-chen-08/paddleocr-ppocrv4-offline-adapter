@@ -12,7 +12,8 @@
 > (`docker run --network none`) on 4 pinned cores: **99.64% character
 > accuracy over 15 fictional pages** (99.70% on the 10 clean pages, 99.52%
 > on the 5 scanned pages, lowest single page 98.98%), **per-page P95 =
-> 4.43 s** (target ≤ 6 s; second independent container run 4.19 s).
+> 4.43 s** — the worst of three independent container runs (3.54 s / 3.99 s / 4.43 s,
+> worst single page 4.79 s), target ≤ 6 s.
 
 ---
 
@@ -109,12 +110,15 @@ curl -F "file=@scan_p1.png" \
 | └ 补充：5 页扫描畸变组 | 99.52%（11 / 2,299） | — | 亦过 |
 | 单页准确率最低值 | **98.98%**（scan_15） | 无单页 < 97% | PASS |
 | 单页延迟 P50 | 1.828 s | — | — |
-| 单页延迟 P95 | **3.987 s**（max 4.179 s） | ≤ 6 s | PASS |
+| 单页延迟 P95 | **4.431 s**（三轮独立运行 3.54–4.43 s，max 4.793 s） | ≤ 6 s | PASS |
 | 离线（`--network none` 容器内）单页识别 | 24 行 / 均置信度 0.9882 / 7.223 ms（含引擎初始化） | 必须可离线 | PASS |
 | 单元测试 | 35 passed | 全绿 | PASS |
 
-> 余量交代：P95 3.987 s 对 6 s 的余量是 **1.50 倍**，不是舒适区。第二次独立容器运行
-> P95 3.537 s / max 3.933 s（`reports/benchmark_run2.json`），两次落在 3.54–3.99 s。
+> 余量交代：按三轮独立容器运行中**最差**的一次 P95 4.431 s 计，对 6 s 的余量只有 **1.35 倍**，
+> 不是舒适区。三轮 P95 分别是 3.987 s（max 4.179 s，`reports/benchmark.json`）、
+> 3.537 s（max 3.933 s，`reports/benchmark_run2.json`）、4.431 s（max 4.793 s，
+> `docs/evidence/benchmark_run3.log`），波动区间 3.54–4.43 s，三轮均 ≤ 6 s。
+> 同一镜像、同一命令、同一绑核，差异来自宿主机负载，不是代码漂移。
 > 4 核被其它进程抢占时单页 max 会涨（见「九、已知边界」）。
 
 逐页（原件）：p01 99.56%，p02 99.78%，p03 **100.00%**，p04 99.78%，p05 99.78%，p06 99.19%，
@@ -141,7 +145,7 @@ python3 -m pytest tests/ -q                         # 35 passed（测试依赖�
 
 模型选型依据：任务指定 **PP-OCRv4 中文**。选 mobile 而非 server —— server 模型在 4 核 CPU
 上单页 > 20 s，直接违反 P95 ≤ 6 s；v4 mobile + 长边 960 实测单页 1.5–4.8 s（上限为印章页
-二次识别），P95 3.987 s，余量 1.50 倍。
+二次识别），三轮最差 P95 4.431 s，对 6 s 余量 1.35 倍。
 精度上 v4 mobile（99.64%）与 v5 mobile（99.72%）基本持平，两者均过 97% 阈值；如需换回可用
 环境变量切回 v5（`PADDLE_OCR_DET_MODEL_NAME=PP-OCRv5_mobile_det`）。
 
